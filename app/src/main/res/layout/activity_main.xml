@@ -13,14 +13,12 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         app:layout_collapseMode="parallax"
-        tools:context=".activity.MainActivity"
-        tools:openDrawer="right">
+        tools:context=".activity.MainActivity">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbaruser"
