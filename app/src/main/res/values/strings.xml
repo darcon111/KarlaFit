@@ -9,5 +9,10 @@
     <string name="terminos">Términos de uso de KarlaFit</string>
     <string name="pass">Contraseña</string>
     <string name="reto">INGRESAR AL RETO</string>
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
+    <string name="msg_exit">Esta seguro que desea salir ?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 
 </resources>
