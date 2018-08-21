@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">KarlaFit</string>
+    <string name="facebook_app_id">2423059017711828</string>
+    <string name="fb_login_protocol_scheme">fb2423059017711828</string>
+    <string name="iniciar">INICIAR SESIÓN</string>
+    <string name="iniciar_facebook">INICIAR SESIÓN CON FACEBOOK</string>
+    <string name="olvidaste">¿Has olvidado la contraseña?</string>
+    <string name="email">Correo electrónico</string>
+    <string name="terminos">Términos de uso de KarlaFit</string>
+    <string name="pass">Contraseña</string>
+    <string name="reto">INGRESAR AL RETO</string>
+
 </resources>

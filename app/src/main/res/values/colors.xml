@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorIcons">#ffffff</color>
+    <color name="colorBg">#2a2c35</color>
+    <color name="fondo">#ededed</color>
+    <color name="color_facebook">#66aae0</color>
+    <color name="error_color">#d11313</color>
+    <color name="border_color">#d9df41</color>
+    <color name="colorButton">#6d6e71</color>
 </resources>

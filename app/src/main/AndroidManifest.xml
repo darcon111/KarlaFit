@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.karlafit.com.karlafit">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="app.karlafit.com">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".clases.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.SplashActivity">
+
+        </activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.PerfilActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ddc5eb14a5a21f52ffd4a8cd86da98401ffcf040" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name=".activity.RetoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
