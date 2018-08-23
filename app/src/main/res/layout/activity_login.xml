@@ -148,6 +148,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/button"
                         android:text="@string/iniciar"
+                        android:onClick="next"
                         tools:layout_editor_absoluteX="24dp"
                         tools:layout_editor_absoluteY="421dp" />
 

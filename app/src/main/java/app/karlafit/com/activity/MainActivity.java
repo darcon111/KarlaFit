@@ -1,8 +1,10 @@
 package app.karlafit.com.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.transition.Transition;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,16 +12,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
+import java.util.ArrayList;
 
 import app.karlafit.com.R;
 import app.karlafit.com.adapter.MenuAdapter;
 import app.karlafit.com.config.AppPreferences;
 import app.karlafit.com.config.Constants;
+import app.karlafit.com.holder.Semanas;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
@@ -27,13 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
-    private RecyclerView mRecyclerView_main;
-    private String[] TITLES = new String[8];
-    private int[] ICONS = new int[8];
+    private RecyclerView mRecyclerView_main,mSemanasRecyclerView;
+    private String[] TITLES = new String[4];
+    private int[] ICONS = new int[4];
     private ActionBarDrawerToggle mDrawerToggle;
 
     private int PROFILE = R.drawable.ic_user;
-    //private RecyclerView.Adapter mAdapter;
     private MenuAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DrawerLayout Drawer;
@@ -43,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
     private AppPreferences appPreferences;
 
     private SweetAlertDialog pDialog;
+
+    private ImageButton btnMenu;
+
+    private ArrayList<Semanas> mListSemanas;
+    private SemanasRecycleAdapter mSemanasAdapter;
+
+    private TextView txtReto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +83,14 @@ public class MainActivity extends AppCompatActivity {
         title.setText(getString(R.string.app_name));
 
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_list_white_24dp));
         } else {
             getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_list_white_24dp));
-        }
+        }*/
 
         /*main menu*/
         mRecyclerView_main = (RecyclerView) findViewById(R.id.RecyclerView_main); // Assigning the RecyclerView Object to the xml View
@@ -74,28 +98,60 @@ public class MainActivity extends AppCompatActivity {
 
 
         /* menu main*/
-        TITLES[0] = getString(R.string.app_name);
-        TITLES[1] = getString(R.string.app_name);
-        TITLES[2] = getString(R.string.app_name);
-        TITLES[3] = getString(R.string.app_name);
-        TITLES[4] = getString(R.string.app_name);
-        TITLES[5] = getString(R.string.app_name);
+        TITLES[0] = getString(R.string.edit);
+        TITLES[1] = getString(R.string.help);
+        TITLES[2] = getString(R.string.exit);
 
-        ICONS[0] = R.drawable.ic_user;
-        ICONS[1] = R.drawable.ic_user;
-        ICONS[2] = R.drawable.ic_user;
-        ICONS[3] = R.drawable.ic_user;
-        ICONS[4] = R.drawable.ic_user;
-        ICONS[5] = R.drawable.ic_user;
+
+        ICONS[0] = R.drawable.ic_edit;
+        ICONS[1] = R.drawable.ic_help;
+        ICONS[2] = R.drawable.ic_exit;
 
         menu();
+
+        btnMenu=(ImageButton) findViewById(R.id.btnmenu);
+
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Drawer.openDrawer(Gravity.RIGHT);
+
+            }
+        });
+
+        mSemanasRecyclerView = (RecyclerView) findViewById(R.id.semanas_recycler_view);
+        // Create a grid layout with two columns
+
+        mListSemanas = new ArrayList<Semanas>();
+
+        mListSemanas.add(new Semanas("1","semana 1","semana 1 sub","2 libras"));
+        mListSemanas.add(new Semanas("2","semana 2","semana 2 sub","3 libras"));
+        mListSemanas.add(new Semanas("3","semana 3","semana 3 sub","4 libras"));
+        mListSemanas.add(new Semanas("4","semana 4","semana 4 sub","5 libras"));
+        mListSemanas.add(new Semanas("5","semana 5","semana 5 sub","6 libras"));
+        mListSemanas.add(new Semanas("6","semana 6","semana 6 sub","7 libras"));
+        mListSemanas.add(new Semanas("7","semana 6","semana 7 sub","8 libras"));
+
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
+
+        mSemanasRecyclerView.setLayoutManager(layoutManager);
+        mSemanasAdapter = new SemanasRecycleAdapter();
+        mSemanasRecyclerView.setAdapter(mSemanasAdapter);
+
+        txtReto=(TextView) findViewById(R.id.txtReto);
+
+        txtReto.setBackgroundColor(getResources().getColor(R.color.colorSecondaryText));
+
+
+
     }
 
     public void menu()
     {
 
 
-        mAdapter = new MenuAdapter(TITLES, ICONS, appPreferences.getUser(), PROFILE, appPreferences.getImagen(), MainActivity.this);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
+        mAdapter = new MenuAdapter(TITLES, ICONS, "temp", PROFILE, appPreferences.getImagen(), MainActivity.this);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
 
         mRecyclerView_main.setAdapter(mAdapter);                              // Setting the adapter to RecyclerView
 
@@ -104,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView_main.setLayoutManager(mLayoutManager);
 
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);        // Drawer object Assigned to the view
+
+        int width = getResources().getDisplayMetrics().widthPixels/2;
+        DrawerLayout.LayoutParams params = (android.support.v4.widget.DrawerLayout.LayoutParams) mRecyclerView_main.getLayoutParams();
+        params.width = width;
+        mRecyclerView_main.setLayoutParams(params);
+
         mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, Drawer, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
@@ -156,19 +218,6 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-
-                    case 5:
-
-
-                        break;
-
-                    case 6:
-
                         pDialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.NORMAL_TYPE);
                         pDialog.setTitleText(getResources().getString(R.string.app_name));
                         pDialog.setContentText(getResources().getString(R.string.msg_exit));
@@ -189,6 +238,19 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         pDialog.show();
+                        break;
+                    case 4:
+
+                        break;
+
+                    case 5:
+
+
+                        break;
+
+                    case 6:
+
+
 
                         break;
 
@@ -211,6 +273,111 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
     }
+
+
+    /* adapter*/
+
+    public class SemanasRecycleAdapter extends RecyclerView.Adapter<SemanasRecycleHolder> {
+        private int lastPosition = -1;
+
+        @Override
+        public SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_semana, viewGroup, false);
+            setAnimation(v,i);
+            return new SemanasRecycleHolder(v);
+        }
+
+
+        @Override
+        public void onBindViewHolder(final SemanasRecycleHolder productHolder, final int i) {
+
+            productHolder.mTitle.setText(mListSemanas.get(i).getTitle());
+            productHolder.mSubTitle.setText(mListSemanas.get(i).getSubtitle());
+            productHolder.mLibras.setText(mListSemanas.get(i).getLibras());
+
+
+            /*Glide.with(MainActivity.this).load(mListSemanas.get(i).getLibras()).into(new SimpleTarget<GlideDrawable>() {
+                @Override
+                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        productHolder.mContenedor.setBackground(resource);
+                    }
+                }
+            });*/
+
+            Glide.with(MainActivity.this).load(R.drawable.ic_bg_semanas).into(new SimpleTarget<GlideDrawable>() {
+                @Override
+                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        productHolder.mContenedor.setBackground(resource);
+                    }
+                }
+            });
+
+
+
+
+
+
+
+
+           // setAnimation(productHolder.itemView, i);
+
+
+
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return mListSemanas.size();
+        }
+
+        public void removeItem(int position) {
+            mListSemanas.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mListSemanas.size());
+            //Signal.get().reset();
+
+
+        }
+
+        private void setAnimation(View viewToAnimate, int position) {
+            // If the bound view wasn't previously displayed on screen, it's animated
+            if (position > lastPosition) {
+                Animation animation;
+                if (position % 2 == 0) {
+                    animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_back_in);
+                } else {
+                    animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_forward_in);
+                }
+
+                viewToAnimate.startAnimation(animation);
+                lastPosition = position;
+            }
+        }
+
+
+    }
+
+    public class SemanasRecycleHolder extends RecyclerView.ViewHolder {
+        public TextView mTitle;
+        public TextView mSubTitle;
+        public TextView mLibras;
+        public LinearLayout mContenedor;
+
+
+        public SemanasRecycleHolder(View itemView) {
+            super(itemView);
+            mTitle = (TextView) itemView.findViewById(R.id.txtTitle);
+            mSubTitle = (TextView) itemView.findViewById(R.id.txtSubtitle);
+            mLibras = (TextView) itemView.findViewById(R.id.txtLibras);
+            mContenedor = (LinearLayout) itemView.findViewById(R.id.contenedor);
+        }
+    }
+
+
 
 
 }

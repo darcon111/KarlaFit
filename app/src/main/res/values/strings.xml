@@ -14,5 +14,11 @@
     <string name="msg_exit">Esta seguro que desea salir ?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="edit">Editar Datos</string>
+    <string name="help">Ayuda</string>
+    <string name="exit">Salir</string>
+    <string name="opreto">Reto</string>
+    <string name="opdieta">Dieta</string>
+    <string name="opreceta">Recetas</string>
 
 </resources>
