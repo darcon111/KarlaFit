@@ -20,5 +20,13 @@
     <string name="opreto">Reto</string>
     <string name="opdieta">Dieta</string>
     <string name="opreceta">Recetas</string>
+    <string name="facebook">Facebook</string>
+    <string name="registrarse">Regístrarse</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="semana">SEMANA 1</string>
+    <string name="dias">5 horas de entrenamiento</string>
+    <string name="libras">6 libras</string>
+
 
 </resources>

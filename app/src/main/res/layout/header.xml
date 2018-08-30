@@ -11,35 +11,30 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="45dp"
         android:layout_marginTop="45dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
         <app.karlafit.com.clases.ImagenCircular.CircleImageView
             android:id="@+id/circleView"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_marginLeft="15dp"
             android:onClick="profile"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             app:srcCompat="@drawable/ic_user" />
 
         <TextView
             android:id="@+id/name"
             style="@style/title"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:gravity="center"
             android:text="Akash Bangad"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/editperfil"
             style="@style/subTitle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="Editar Perfil" />
 
 

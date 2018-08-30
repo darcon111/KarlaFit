@@ -34,4 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void registro(View v)
+    {
+        Intent intent = new Intent(LoginActivity.this,RegistroActivity.class);
+        startActivity(intent);
+    }
 }

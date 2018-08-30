@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,7 @@
     android:background="@color/colorBg"
     tools:context="app.karlafit.com.activity.LoginActivity">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -161,6 +162,25 @@
                         android:background="@drawable/button_facebook"
                         android:text="@string/iniciar_facebook" />
 
+                    <TextView
+                        android:id="@+id/textView12"
+                        style="@style/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:text="O"
+                        android:textColor="@color/colorIcons" />
+
+                    <Button
+                        android:id="@+id/btnRegistro"
+                        style="@style/button"
+                        android:onClick="registro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/buttonregistro"
+                        android:text="@string/registro" />
 
 
                 </LinearLayout>
@@ -168,6 +188,6 @@
             </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>

@@ -48,13 +48,13 @@ public class SplashActivity extends AppCompatActivity {
                 app = new AppPreferences(getApplicationContext());
                 user = FirebaseAuth.getInstance().getCurrentUser();
 
-                /*if(app.getTour().equals("0"))
+                if(app.getTour().equals("0"))
                 {
-                    Intent intent = new Intent(SplashActivity.this, TourActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, RetoActivity.class);
                     startActivity(intent);
                     finish();
 
-                }else {*/
+                }else {
                     if (user != null) {
                         // User is signed in
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(mainIntent);
                         finish();
                     }
-               // }
+               }
 
             }
         };

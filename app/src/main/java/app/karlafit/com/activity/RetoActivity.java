@@ -1,14 +1,19 @@
 package app.karlafit.com.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import app.karlafit.com.R;
+import app.karlafit.com.config.AppPreferences;
 
 public class RetoActivity extends AppCompatActivity {
+
+    private AppPreferences app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +27,16 @@ public class RetoActivity extends AppCompatActivity {
         // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_reto);
+
+        app = new AppPreferences(getApplicationContext());
+    }
+
+    public void reto(View v){
+
+        app.setTour("1");
+
+        Intent  intent = new Intent(RetoActivity.this,LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
