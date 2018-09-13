@@ -66,61 +66,55 @@
             </android.support.v7.widget.Toolbar>
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/semanas_recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
 
-                app:layout_constraintBottom_toTopOf="@+id/menu"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbaruser" />
 
-            <LinearLayout
-                android:id="@+id/menu"
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:itemIconTint="@drawable/selector"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:tabBackground="@drawable/tab_color_selector"
+                app:tabIndicatorColor="@android:color/transparent"
+                app:tabSelectedTextColor="@color/colorIcons">
 
-                <TextView
-                    android:id="@+id/txtReto"
-                    style="@style/subTitle"
+                <android.support.design.widget.TabItem
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorButton"
-                    android:fontFamily="@font/roboto_condensed_regular"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/opreto"
-                    android:textSize="24sp" />
+                    android:layout_height="wrap_content"
+                    android:tag="1"
+                    android:text="Reto">
 
-                <TextView
-                    android:id="@+id/txtDieta"
-                    style="@style/subTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorButton"
-                    android:fontFamily="@font/roboto_condensed_regular"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/opdieta"
-                    android:textSize="24sp" />
+                </android.support.design.widget.TabItem>
 
-                <TextView
-                    android:id="@+id/txtReceta"
-                    style="@style/subTitle"
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tabItem"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorButton"
-                    android:fontFamily="@font/roboto_condensed_regular"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/opreceta"
-                    android:textSize="24sp" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:tag="2"
+                    android:text="Dieta" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="3"
+                    android:text="Recetas" />
+            </android.support.design.widget.TabLayout>
+
+            <FrameLayout
+                android:id="@+id/contenedor"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbaruser">
+
+            </FrameLayout>
 
         </android.support.constraint.ConstraintLayout>
 

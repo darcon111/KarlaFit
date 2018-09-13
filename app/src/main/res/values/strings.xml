@@ -28,5 +28,7 @@
     <string name="dias">5 horas de entrenamiento</string>
     <string name="libras">6 libras</string>
 
+    <string name="default_notification_channel_id">10003</string>
+
 
 </resources>

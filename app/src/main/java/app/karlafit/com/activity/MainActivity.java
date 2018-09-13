@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.transition.Transition;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
-    private RecyclerView mRecyclerView_main,mSemanasRecyclerView;
+    private RecyclerView mRecyclerView_main;
     private String[] TITLES = new String[4];
     private int[] ICONS = new int[4];
     private ActionBarDrawerToggle mDrawerToggle;
@@ -62,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private SweetAlertDialog pDialog;
 
     private ImageButton btnMenu;
-
-    private ArrayList<Semanas> mListSemanas;
-    private SemanasRecycleAdapter mSemanasAdapter;
 
     private TextView txtReto;
 
@@ -120,29 +118,53 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mSemanasRecyclerView = (RecyclerView) findViewById(R.id.semanas_recycler_view);
-        // Create a grid layout with two columns
+//Initializing the tablayout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
 
-        mListSemanas = new ArrayList<Semanas>();
+                if(tab.getPosition()==0)
+                {
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.contenedor, new SemanasActivity(), "SOMETAG").
+                            commit();
+                }else if(tab.getPosition()==1)
+                {
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.contenedor, new DietaActivity(), "SOMETAG").
+                            commit();
+                }else
+                {
+                    getSupportFragmentManager().beginTransaction().
+                            replace(R.id.contenedor, new RecetasActivity(), "SOMETAG").
+                            commit();
+                }
 
-        mListSemanas.add(new Semanas("1","semana 1","semana 1 sub","2 libras"));
-        mListSemanas.add(new Semanas("2","semana 2","semana 2 sub","3 libras"));
-        mListSemanas.add(new Semanas("3","semana 3","semana 3 sub","4 libras"));
-        mListSemanas.add(new Semanas("4","semana 4","semana 4 sub","5 libras"));
-        mListSemanas.add(new Semanas("5","semana 5","semana 5 sub","6 libras"));
-        mListSemanas.add(new Semanas("6","semana 6","semana 6 sub","7 libras"));
-        mListSemanas.add(new Semanas("7","semana 6","semana 7 sub","8 libras"));
+            }
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        mSemanasRecyclerView.setLayoutManager(layoutManager);
-        mSemanasAdapter = new SemanasRecycleAdapter();
-        mSemanasRecyclerView.setAdapter(mSemanasAdapter);
+            }
 
-        txtReto=(TextView) findViewById(R.id.txtReto);
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-        txtReto.setBackgroundColor(getResources().getColor(R.color.colorSecondaryText));
+            }
+        });
 
+
+        if (savedInstanceState == null) {
+            // Let's first dynamically add a fragment into a frame container
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.contenedor, new SemanasActivity(), "SOMETAG").
+                    commit();
+
+            // Now later we can lookup the fragment by tag
+            //DemoFragment fragmentDemo = (DemoFragment)
+                //    getSupportFragmentManager().findFragmentByTag("SOMETAG");
+        }
 
 
     }
@@ -275,109 +297,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /* adapter*/
 
-    public class SemanasRecycleAdapter extends RecyclerView.Adapter<SemanasRecycleHolder> {
-        private int lastPosition = -1;
 
-        @Override
-        public SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_semana, viewGroup, false);
-            setAnimation(v,i);
-            return new SemanasRecycleHolder(v);
+    private void select(int i)
+    {
+        switch (i)
+        {
+            case 1:
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.contenedor, new SemanasActivity(), "SOMETAG").
+                        commit();
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.contenedor, new DietaActivity(), "SOMETAG").
+                        commit();
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.contenedor, new RecetasActivity(), "SOMETAG").
+                        commit();
+                break;
         }
-
-
-        @Override
-        public void onBindViewHolder(final SemanasRecycleHolder productHolder, final int i) {
-
-            productHolder.mTitle.setText(mListSemanas.get(i).getTitle());
-            productHolder.mSubTitle.setText(mListSemanas.get(i).getSubtitle());
-            productHolder.mLibras.setText(mListSemanas.get(i).getLibras());
-
-
-            /*Glide.with(MainActivity.this).load(mListSemanas.get(i).getLibras()).into(new SimpleTarget<GlideDrawable>() {
-                @Override
-                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        productHolder.mContenedor.setBackground(resource);
-                    }
-                }
-            });*/
-
-            Glide.with(MainActivity.this).load(R.drawable.ic_bg_semanas).into(new SimpleTarget<GlideDrawable>() {
-                @Override
-                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        productHolder.mContenedor.setBackground(resource);
-                    }
-                }
-            });
-
-
-
-
-
-
-
-
-           // setAnimation(productHolder.itemView, i);
-
-
-
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return mListSemanas.size();
-        }
-
-        public void removeItem(int position) {
-            mListSemanas.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, mListSemanas.size());
-            //Signal.get().reset();
-
-
-        }
-
-        private void setAnimation(View viewToAnimate, int position) {
-            // If the bound view wasn't previously displayed on screen, it's animated
-            if (position > lastPosition) {
-                Animation animation;
-                if (position % 2 == 0) {
-                    animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_back_in);
-                } else {
-                    animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_forward_in);
-                }
-
-                viewToAnimate.startAnimation(animation);
-                lastPosition = position;
-            }
-        }
-
 
     }
-
-    public class SemanasRecycleHolder extends RecyclerView.ViewHolder {
-        public TextView mTitle;
-        public TextView mSubTitle;
-        public TextView mLibras;
-        public LinearLayout mContenedor;
-
-
-        public SemanasRecycleHolder(View itemView) {
-            super(itemView);
-            mTitle = (TextView) itemView.findViewById(R.id.txtTitle);
-            mSubTitle = (TextView) itemView.findViewById(R.id.txtSubtitle);
-            mLibras = (TextView) itemView.findViewById(R.id.txtLibras);
-            mContenedor = (LinearLayout) itemView.findViewById(R.id.contenedor);
-        }
-    }
-
-
-
-
 }
