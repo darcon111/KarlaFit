@@ -10,7 +10,9 @@
         android:topRightRadius="1dp" />
 
 
-    <solid android:color="@color/error_color" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/border_color" />
 
 
 

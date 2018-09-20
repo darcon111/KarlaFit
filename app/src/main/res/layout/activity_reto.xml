@@ -29,8 +29,8 @@
         android:layout_marginRight="24dp"
         android:layout_marginStart="24dp"
         android:background="@drawable/reto"
-        android:text="@string/reto"
         android:onClick="reto"
+        android:text="@string/reto"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

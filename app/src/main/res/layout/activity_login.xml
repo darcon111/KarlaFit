@@ -98,8 +98,11 @@
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto_condensed_light"
                     android:text="@string/olvidaste"
+                    android:textColor="@color/colorButton"
                     android:textSize="14sp"
+                    android:onClick="recuperar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
@@ -123,9 +126,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:text="@string/terminos"
-                        android:textColor="@color/colorIcons"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/colorButton"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +138,7 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -148,10 +150,9 @@
                         style="@style/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button"
+                        android:background="@drawable/reto"
                         android:onClick="next"
-                        android:text="@string/iniciar"
-                        />
+                        android:text="@string/iniciar" />
 
                     <Button
                         android:id="@+id/btnIniciarFace"
@@ -168,18 +169,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto_condensed_light"
                         android:gravity="center"
                         android:text="O"
-                        android:textColor="@color/colorIcons" />
+                        android:textColor="@color/colorButton" />
 
                     <Button
                         android:id="@+id/btnRegistro"
                         style="@style/button"
-                        android:onClick="registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/buttonregistro"
+                        android:onClick="registro"
                         android:text="@string/registro" />
 
 

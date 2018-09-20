@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorAccent">#e0006a</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#a7a8ab</color>
     <color name="colorDivider">#bdbdbd</color>
@@ -12,6 +12,6 @@
     <color name="color_facebook">#66aae0</color>
     <color name="error_color">#d11313</color>
     <color name="border_color">#d9df41</color>
-    <color name="colorButton">#6d6e71</color>
+    <color name="colorButton">#929496</color>
     <color name="colorTitle">#39ff14</color>
 </resources>

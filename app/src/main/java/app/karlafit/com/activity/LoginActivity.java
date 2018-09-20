@@ -40,4 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this,RegistroActivity.class);
         startActivity(intent);
     }
+
+    public void recuperar(View v)
+    {
+        Intent intent = new Intent(LoginActivity.this,ContrasenaActivity.class);
+        startActivity(intent);
+    }
 }

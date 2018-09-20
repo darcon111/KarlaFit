@@ -58,6 +58,7 @@ dependencies {
     }
 
     implementation 'com.google.firebase:firebase-core:16.0.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.3'
     implementation 'com.google.firebase:firebase-database:16.0.2'
     implementation 'com.google.firebase:firebase-iid:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.0'
