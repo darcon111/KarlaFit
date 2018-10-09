@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import app.karlafit.com.R;
 
-public class PerfilActivity extends AppCompatActivity {
+public class RecuperarActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
@@ -20,14 +20,15 @@ public class PerfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_perfil);
+        setContentView(R.layout.activity_recuperar);
+
 
         /* toolbar*/
         toolbar = (Toolbar) findViewById(R.id.toolbaruser);
 
         TextView title = (TextView) findViewById(R.id.txtTitle);
 
-        title.setText(getString(R.string.perfil));
+        title.setText(getString(R.string.recuperar));
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -38,6 +39,9 @@ public class PerfilActivity extends AppCompatActivity {
         } else {
             getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_arrow));
         }
+
+
+
     }
 
 
@@ -60,4 +64,7 @@ public class PerfilActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
 }

@@ -94,11 +94,14 @@
                     style="@style/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
+                    android:fontFamily="@font/roboto_condensed_light"
+                    android:onClick="recuperar"
                     android:text="@string/olvidaste"
+                    android:textColor="@color/colorButton"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -123,9 +126,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
                         android:text="@string/terminos"
-                        android:textColor="@color/colorIcons"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/colorButton"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout

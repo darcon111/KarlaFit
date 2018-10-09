@@ -20,8 +20,8 @@
     <string name="opreto">Reto</string>
     <string name="opdieta">Dieta</string>
     <string name="opreceta">Recetas</string>
-    <string name="facebook">Facebook</string>
-    <string name="registrarse">Regístrarse</string>
+    <string name="facebook">FACEBOOK</string>
+    <string name="registrarse">REGISTRARSE</string>
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="semana">SEMANA 1</string>
@@ -29,6 +29,7 @@
     <string name="libras">6 libras</string>
 
     <string name="default_notification_channel_id">10003</string>
+    <string name="textview">TextView</string>
 
 
 </resources>
