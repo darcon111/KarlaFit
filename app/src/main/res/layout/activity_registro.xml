@@ -60,8 +60,8 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView4"
+                <app.karlafit.com.clases.ImagenCircular.CircleImageView
+                    android:id="@+id/imgPerfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -69,6 +69,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_user"
                     android:contentDescription="TODO"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,10 +91,10 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/subir"
                     style="@style/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,7 +123,7 @@
                     android:text="@string/explicacion"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button3" />
+                    app:layout_constraintTop_toBottomOf="@+id/subir" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -376,6 +377,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtPeso"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -398,6 +400,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtNombre"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -420,6 +423,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtApellido"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -442,6 +446,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtEmail"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -468,6 +473,7 @@
                     app:passwordToggleTint="@color/colorIcons">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtPass"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -487,10 +493,11 @@
                     android:layout_marginRight="16dp"
                     android:text="O REGISTRESE CON:"
                     android:textColor="@color/colorIcons"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button5" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnRegistrar" />
 
                 <Button
                     android:id="@+id/button4"
@@ -505,13 +512,49 @@
                     android:layout_marginBottom="32dp"
                     android:background="@drawable/button_facebook"
                     android:text="@string/facebook"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
+
+                    <CheckBox
+                        android:id="@+id/ckTer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_condensed_light"
+
+                        android:textColor="@color/colorButton"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/terminos"
+                        android:textColor="@color/colorButton" />
+
+                </LinearLayout>
+
+
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/btnRegistrar"
                     style="@style/button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -520,11 +563,13 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/button"
                     android:text="@string/registrarse"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayout4"
@@ -541,6 +586,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtEstatura"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -563,6 +609,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtEdad"
                         style="@style/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

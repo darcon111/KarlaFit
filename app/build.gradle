@@ -62,6 +62,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.3'
     implementation 'com.google.firebase:firebase-iid:17.0.3'
     implementation 'com.google.firebase:firebase-messaging:17.3.3'
+    implementation 'com.github.jrvansuita:PickImage:2.2.4'
 
     apply plugin: 'com.google.gms.google-services'
 }

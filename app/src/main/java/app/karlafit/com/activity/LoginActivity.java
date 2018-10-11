@@ -68,7 +68,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
-    private CheckBox ckTer;
     private static final String TAG = LoginActivity.class.getSimpleName();
     private static final int PERMISSION_REQUEST_CODE = 1;
     private FirebaseAuth mAuth;
@@ -94,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //data facebook
     private String appname="",applastname="";
-    private String appbirthday="",appgenero="1";
+    private String appbirthday="";
 
 
     @Override
@@ -167,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (ckTer.isChecked()) {
+
                     loginFacebook.performClick();
                     loginFacebook.setPressed(true);
                     loginFacebook.invalidate();
@@ -187,14 +186,6 @@ public class LoginActivity extends AppCompatActivity {
                                             // Application code
                                             try {
 
-
-                                                if (Constants.isHasJson(object, "gender")) {
-                                                    if (object.getString("gender").equals("male")) {
-                                                        appgenero = "1";
-                                                    } else {
-                                                        appgenero = "2";
-                                                    }
-                                                }
 
                                                 if (Constants.isHasJson(object, "birthday")) {
                                                     appbirthday = object.getString("birthday"); // 01/31/1980 format
@@ -237,23 +228,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginFacebook.setPressed(false);
                     loginFacebook.invalidate();
 
-                }else
-                {
-                    pDialog= new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE);
-                    pDialog.setTitleText(getResources().getString(R.string.app_name));
-                    pDialog.setContentText(getResources().getString(R.string.aceptar_terminos));
-                    pDialog.setConfirmText(getResources().getString(R.string.ok));
-                    pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            sDialog.dismissWithAnimation();
 
-                        }
-                    });
-                    pDialog.show();
-
-
-                }
             }
         });
 
@@ -266,23 +241,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ckTer.isChecked()) {
                     login();
-                }else
-                {
-                    pDialog= new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE);
-                    pDialog.setTitleText(getResources().getString(R.string.app_name));
-                    pDialog.setContentText(getResources().getString(R.string.aceptar_terminos));
-                    pDialog.setConfirmText(getResources().getString(R.string.ok));
-                    pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            sDialog.dismissWithAnimation();
 
-                        }
-                    });
-                    pDialog.show();
-                }
             }
         });
 
@@ -323,7 +283,6 @@ public class LoginActivity extends AppCompatActivity {
 
         databaseUsers.addValueEventListener(listen);
 
-        ckTer =(CheckBox) findViewById(R.id.ckTer);
 
     }
 
@@ -498,8 +457,9 @@ public class LoginActivity extends AppCompatActivity {
                 data.setName(appname);
                 data.setLastname(applastname);
                 data.setFecha_nac(appbirthday);
-                data.setGenero(appgenero);
-                data.setType("1");
+                data.setEdad("");
+                data.setEstatura("");
+                data.setPeso("");
                 data.setLat("0");
                 data.setLog("0");
                 data.setFirebase_code("");
@@ -541,6 +501,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         }
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
 
 
     }
@@ -674,55 +638,7 @@ public class LoginActivity extends AppCompatActivity {
             return ;
         }
 
-
-        mAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPass.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-
-
-                        if (!task.isSuccessful()) {
-                            auth("");
-                        }
-                        else
-                        {
-                            /* correo verificacion */
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            if(user.isEmailVerified()==false) {
-                                user.sendEmailVerification();
-
-
-                                pDialog= new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                                pDialog.setTitleText(getResources().getString(R.string.app_name));
-                                pDialog.setContentText(getString(R.string.user_create));
-                                pDialog.setConfirmText(getResources().getString(R.string.ok));
-                                pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        sDialog.dismissWithAnimation();
-                                        clear();
-                                    }
-                                });
-                                pDialog.show();
-
-                            }else {
-                                insertUser("");
-                                databaseUsers.removeEventListener(listen);
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-
-                        // ...
-                    }
-                });
-
+        auth("");
 
     }
 

@@ -18,13 +18,13 @@ public class User {
     private String name;
     private String lastname;
     private String fecha_nac;
-    private String genero;
     private String lat;
     private String log;
-    private String biografia;
-    private String type;
-    private String valoracion;
     private String mobile;
+    private String estatura;
+    private String edad;
+    private String peso;
+
 
 
     public String getId() {
@@ -107,45 +107,6 @@ public class User {
         this.fecha_nac = fecha_nac;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-
-
-    public User() {
-    }
-
-
-    public String getBiografia() {
-        return biografia;
-    }
-
-    public void setBiografia(String biografia) {
-        this.biografia = biografia;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-
-
-    public String getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(String valoracion) {
-        this.valoracion = valoracion;
-    }
 
     public String getMobile() {
         return mobile;
@@ -171,7 +132,31 @@ public class User {
         this.log = log;
     }
 
-    public User(String id, String email, String url_imagen, String firebase_code, String provider, String date_created, String firebaseId, String name, String lastname, String fecha_nac, String genero, String lat, String log, String biografia, String type, String valoracion, String mobile) {
+    public String getEstatura() {
+        return estatura;
+    }
+
+    public void setEstatura(String estatura) {
+        this.estatura = estatura;
+    }
+
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
+
+    public String getPeso() {
+        return peso;
+    }
+
+    public void setPeso(String peso) {
+        this.peso = peso;
+    }
+
+    public User(String id, String email, String url_imagen, String firebase_code, String provider, String date_created, String firebaseId, String name, String lastname, String fecha_nac, String lat, String log, String mobile, String estatura, String edad, String peso) {
         this.id = id;
         this.email = email;
         this.url_imagen = url_imagen;
@@ -182,12 +167,14 @@ public class User {
         this.name = name;
         this.lastname = lastname;
         this.fecha_nac = fecha_nac;
-        this.genero = genero;
         this.lat = lat;
         this.log = log;
-        this.biografia = biografia;
-        this.type = type;
-        this.valoracion = valoracion;
         this.mobile = mobile;
+        this.estatura = estatura;
+        this.edad = edad;
+        this.peso = peso;
+    }
+
+    public User() {
     }
 }

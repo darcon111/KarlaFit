@@ -28,7 +28,6 @@
     <string name="dias">5 horas de entrenamiento</string>
     <string name="libras">6 libras</string>
     <string name="recuperar">RECUPERAR</string>
-
     <string name="registro">REGÍSTRESE CON</string>
     <string name="fotoperfil">FOTO DE PERFIL</string>
     <string name="subir">Subir</string>
@@ -38,7 +37,6 @@
     <string name="talla">Talla</string>
     <string name="edad">Edad</string>
     <string name="regis">Registro</string>
-
     <string name="default_notification_channel_id">10003</string>
     <string name="textview">TextView</string>
     <string name="error_pass">Ingrese su Contraseña</string>
@@ -53,4 +51,11 @@
     <string name="auth">Cargando...</string>
     <string name="colorAccent">#e0006a</string>
     <string name="aceptar_terminos">Por favor acepte los términos y condiciones </string>
+
+    <string name="error_name">Ingrese su nombre</string>
+    <string name="error_apellido">Ingrese su apellido</string>
+    <string name="error_email">Ingrese su email</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="sd">Card</string>
+    <string name="image">Seleccione una imagen</string>
 </resources>
