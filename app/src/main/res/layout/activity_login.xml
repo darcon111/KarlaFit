@@ -86,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/pass"
+                        android:inputType="textPassword"
                         android:textColor="@color/colorIcons" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -94,15 +95,15 @@
                     style="@style/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/roboto_condensed_light"
+                    android:onClick="recuperar"
                     android:text="@string/olvidaste"
                     android:textColor="@color/colorButton"
                     android:textSize="14sp"
-                    android:onClick="recuperar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
@@ -110,24 +111,33 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
                     android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
                     android:layout_marginTop="24dp"
-                    android:orientation="vertical"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnolvide">
 
                     <CheckBox
-                        android:id="@+id/checkBox"
-                        android:layout_width="match_parent"
+                        android:id="@+id/ckTer"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_condensed_light"
-                        android:text="@string/terminos"
+
                         android:textColor="@color/colorButton"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        style="@style/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/terminos"
+                        android:textColor="@color/colorButton" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,7 +148,7 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -146,16 +156,22 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                     <Button
-                        android:id="@+id/btnIniciar"
+                        android:id="@+id/btnlogin"
                         style="@style/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/reto"
-                        android:onClick="next"
+                        android:background="@drawable/button"
                         android:text="@string/iniciar" />
 
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/button_facebook_login"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
+
                     <Button
-                        android:id="@+id/btnIniciarFace"
+                        android:id="@+id/btnfacebook"
                         style="@style/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -169,19 +185,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:fontFamily="@font/roboto_condensed_light"
                         android:gravity="center"
                         android:text="O"
-                        android:textColor="@color/colorButton" />
+                        android:textColor="@color/colorIcons" />
 
                     <Button
                         android:id="@+id/btnRegistro"
                         style="@style/button"
+                        android:onClick="registro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/buttonregistro"
-                        android:onClick="registro"
                         android:text="@string/registro" />
 
 

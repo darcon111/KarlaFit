@@ -125,7 +125,7 @@
         android:fontFamily="@font/roboto_condensed_bold"
         android:singleLine="true"
         android:text="@string/dialog_default_title"
-        android:textColor="@android:color/white"
+        android:textColor="@color/sweet_dialog_bg_color"
         android:textSize="19sp" />
 
     <TextView
@@ -136,7 +136,7 @@
         android:fontFamily="@font/roboto_condensed_light"
         android:gravity="center"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/sweet_dialog_bg_color"
         android:textSize="14sp"
         android:visibility="gone" />
 

@@ -31,6 +31,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -249,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
                                 sDialog.dismissWithAnimation();
-                                //signOut();
+                                signOut();
                                 finish();
                             }
                         });
@@ -321,4 +323,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    //sign out method
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+    }
+
 }

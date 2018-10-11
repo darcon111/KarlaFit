@@ -16,12 +16,12 @@ repositories {
 
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion = "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion = '28.0.2'
     defaultConfig {
         applicationId "app.karlafit.com"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,31 +37,31 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:support-annotations:27.1.1'
-    implementation 'com.android.support:support-compat:27.1.1'
-    implementation 'com.android.support:support-core-ui:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.android.support:support-compat:28.0.0'
+    implementation 'com.android.support:support-core-ui:28.0.0'
     implementation 'com.github.bumptech.glide:glide:3.8.0'
 
-    implementation 'com.firebase:firebase-client-android:2.4.0'
+    implementation 'com.firebase:firebase-client-android:2.5.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.28.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     implementation project(':SweetAlert')
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true;
     }
 
-    implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
-    implementation 'com.google.firebase:firebase-database:16.0.2'
-    implementation 'com.google.firebase:firebase-iid:17.0.0'
-    implementation 'com.google.firebase:firebase-messaging:17.3.0'
+
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-iid:17.0.3'
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
 
     apply plugin: 'com.google.gms.google-services'
 }

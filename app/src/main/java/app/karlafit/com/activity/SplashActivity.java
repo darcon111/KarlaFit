@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.crashlytics.android.Crashlytics;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -15,6 +17,7 @@ import java.util.TimerTask;
 
 import app.karlafit.com.R;
 import app.karlafit.com.config.AppPreferences;
+import io.fabric.sdk.android.Fabric;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -38,6 +41,9 @@ public class SplashActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Hide title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        AppEventsLogger.activateApp(getApplication());
+        Fabric.with(this, new Crashlytics());
 
         setContentView(R.layout.activity_splash);
 

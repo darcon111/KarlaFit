@@ -10,8 +10,8 @@
         android:topRightRadius="1dp" />
 
 
-    <solid android:color="@color/colorButton" />
-
-
+    <stroke
+        android:width="3dp"
+        android:color="@color/colorIcons" />
 
 </shape>

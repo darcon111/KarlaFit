@@ -20,18 +20,25 @@ public class RegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // remove title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setContentView(R.layout.activity_registro);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
         /* toolbar*/
         toolbar = (Toolbar) findViewById(R.id.toolbaruser);
 
         TextView title = (TextView) findViewById(R.id.txtTitle);
 
-        title.setText(getString(R.string.app_name));
+        title.setText(getString(R.string.registro));
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -43,8 +50,9 @@ public class RegistroActivity extends AppCompatActivity {
             getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_arrow));
         }
 
-
     }
+
+
 
     @Override
     public void onBackPressed() {
