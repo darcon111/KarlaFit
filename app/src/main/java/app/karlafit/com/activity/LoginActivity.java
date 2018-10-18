@@ -42,6 +42,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.ProviderQueryResult;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -317,6 +319,8 @@ public class LoginActivity extends AppCompatActivity {
 
         if(token.equals("")) {
             //authenticate user email
+
+
             mAuth.signInWithEmailAndPassword(txtEmail.getText().toString(), txtPass.getText().toString())
                     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -343,7 +347,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     pDialog= new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE);
                                     pDialog.setTitleText(getResources().getString(R.string.app_name));
-                                    pDialog.setContentText(getResources().getString(R.string.user_create));
+                                    pDialog.setContentText(getResources().getString(R.string.valide_user));
                                     pDialog.setConfirmText(getResources().getString(R.string.ok));
                                     pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
@@ -593,12 +597,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void next (View v)
-    {
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 
     public void registro(View v)
     {
@@ -638,7 +637,54 @@ public class LoginActivity extends AppCompatActivity {
             return ;
         }
 
-        auth("");
+
+
+        mAuth.fetchSignInMethodsForEmail(txtEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+
+                if(task.getResult().getSignInMethods().size()>0){
+                    if(task.getResult().getSignInMethods().get(0).equals("password"))
+                    {
+                        auth("");
+                    }else if(task.getResult().getSignInMethods().get(0).equals("facebook.com"))
+                    {
+                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText(getResources().getString(R.string.app_name))
+                                .setContentText(getResources().getString(R.string.user_facebook))
+                                .setConfirmText(getResources().getString(R.string.ok))
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+
+                                    }
+                                })
+                                .show();
+
+                    }
+                }
+
+               else
+                {
+                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText(getResources().getString(R.string.app_name))
+                            .setContentText(getResources().getString(R.string.error_user_exite))
+                            .setConfirmText(getResources().getString(R.string.ok))
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+
+                                }
+                            })
+                            .show();
+                }
+            }
+        });
+
+
+
 
     }
 

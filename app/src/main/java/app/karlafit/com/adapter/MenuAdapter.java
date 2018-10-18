@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import app.karlafit.com.R;
 import app.karlafit.com.activity.PerfilActivity;
 import app.karlafit.com.clases.ImagenCircular.CircleImageView;
+import app.karlafit.com.config.Constants;
 
 
 /**
@@ -153,11 +154,17 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
             holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
             if(!imagen_url.equals("")) {
-                Glide.with(mContext).load(imagen_url)
-                        .thumbnail(1.0f)
-                        .crossFade()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(holder.profile);
+                if(imagen_url.contains("https:")) {
+                    Glide.with(mContext).load(imagen_url)
+                            .thumbnail(1.0f)
+                            .crossFade()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(holder.profile);
+                }else
+                {
+                    holder.profile.setImageBitmap(Constants.decodeBase64(imagen_url));
+
+                }
             }else
             {
                 holder.profile.setImageResource(R.drawable.ic_user);

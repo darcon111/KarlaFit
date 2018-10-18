@@ -28,7 +28,7 @@
     <string name="dias">5 horas de entrenamiento</string>
     <string name="libras">6 libras</string>
     <string name="recuperar">RECUPERAR</string>
-    <string name="registro">REGÍSTRESE CON</string>
+    <string name="registro">REGÍSTRESE</string>
     <string name="fotoperfil">FOTO DE PERFIL</string>
     <string name="subir">Subir</string>
     <string name="peso">Peso</string>
@@ -45,6 +45,8 @@
     <string name="error_user">Un usuario con este correo electrónico ya existe</string>
     <string name="error_user_exite">Cuenta no existe, por favor regístrese</string>
     <string name="user_create">Usuario creado \n Por Favor Valide su email</string>
+    <string name="user_create2">Usuario creado</string>
+    <string name="valide_user">Por Favor Valide su email para poder ingresar</string>
     <string name="error_mail">Ingrese un Email Valido</string>
     <string name="permissions">La app necesita de permisos</string>
     <string name="restabler_msg">Esta opcion es solo para usuarios registrados via email !!!</string>
@@ -58,4 +60,5 @@
     <string name="cancelar">Cancelar</string>
     <string name="sd">Card</string>
     <string name="image">Seleccione una imagen</string>
+    <string name="user_facebook">Usuario registrado con Facebook por favor logearse con este</string>
 </resources>

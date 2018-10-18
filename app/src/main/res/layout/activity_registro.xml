@@ -94,7 +94,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 
                 <Button
-                    android:id="@+id/subir"
+                    android:id="@+id/btnSubir"
                     style="@style/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                     android:text="@string/explicacion"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/subir" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnSubir" />
 
                 <TextView
                     android:id="@+id/textView6"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.transition.Transition;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -32,12 +34,23 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.login.LoginManager;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.karlafit.com.R;
 import app.karlafit.com.adapter.MenuAdapter;
+import app.karlafit.com.clases.User;
 import app.karlafit.com.config.AppPreferences;
 import app.karlafit.com.config.Constants;
 import app.karlafit.com.holder.Semanas;
@@ -52,17 +65,19 @@ public class MainActivity extends AppCompatActivity {
     private String[] TITLES = new String[4];
     private int[] ICONS = new int[4];
     private ActionBarDrawerToggle mDrawerToggle;
-
+    private static FirebaseUser user;
     private int PROFILE = R.drawable.ic_user;
     private MenuAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DrawerLayout Drawer;
     private String TAG = MainActivity.class.getName();
     private String name="Usuario";
-
+    private DatabaseReference databaseUsers;
     private AppPreferences appPreferences;
-
+    private User Utemp;
     private SweetAlertDialog pDialog;
+    private String provider;
+    private String imagen;
 
     private ImageButton btnMenu;
 
@@ -107,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         ICONS[1] = R.drawable.ic_help;
         ICONS[2] = R.drawable.ic_exit;
 
-        menu();
+
 
         btnMenu=(ImageButton) findViewById(R.id.btnmenu);
 
@@ -169,13 +184,92 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        databaseUsers.keepSynced(true);
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        com.google.firebase.database.Query userquery = databaseUsers
+                .orderByChild("email").equalTo(user.getEmail());
+
+        userquery.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
+                for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    Utemp = postSnapshot.getValue(User.class);
+                    
+
+                    if (user != null) {
+                        List<String> listProvider = user.getProviders();
+                        provider = listProvider.get(0);
+
+                        if(Utemp.getUrl_imagen()!=null){
+
+                            if(!Utemp.getUrl_imagen().equals(""))
+                            {
+                                imagen=Utemp.getUrl_imagen().toString();
+                            }else
+                            {
+                                if (user.getPhotoUrl() != null) {
+                                    imagen = user.getPhotoUrl().toString();
+                                }
+                            }
+
+                        }else {
+                            // User is signed in
+                            if (user.getPhotoUrl() != null) {
+                                imagen = user.getPhotoUrl().toString();
+                            }
+                        }
+
+
+
+                        if (Utemp == null) {
+                            try {
+                                name = user.getEmail().toString();
+                            } catch (Exception e) {
+                                if (user.getDisplayName() != null) {
+                                    name = user.getDisplayName().toString();
+                                }
+                            }
+                        } else {
+                            if (!Utemp.getName().equals("")) {
+                                name = Utemp.getName() + " " + Utemp.getLastname();
+                            }
+                        }
+
+
+                        if (imagen == null) {
+                            imagen = "";
+                        }
+                        if (name == null) {
+                            name = "";
+                        }
+                    }
+
+
+
+
+                }
+                menu();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "onCancelled", databaseError.toException());
+            }
+        });
+
+
     }
 
     public void menu()
     {
 
 
-        mAdapter = new MenuAdapter(TITLES, ICONS, "temp", PROFILE, appPreferences.getImagen(), MainActivity.this);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
+        mAdapter = new MenuAdapter(TITLES, ICONS, name, PROFILE, imagen, MainActivity.this);       // Creating the Adapter of MyAdapter class(which we are going to see in a bit)
 
         mRecyclerView_main.setAdapter(mAdapter);                              // Setting the adapter to RecyclerView
 

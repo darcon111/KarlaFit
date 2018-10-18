@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,9 +41,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickResult;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -59,11 +63,13 @@ import app.karlafit.com.config.AppPreferences;
 import app.karlafit.com.config.Constants;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class RegistroActivity extends AppCompatActivity {
+public class RegistroActivity extends AppCompatActivity implements
+        IPickResult {
 
     private Toolbar toolbar;
     private EditText txtEstatura,txtPeso,txtEdad,txtEmail,txtPass,txtNombre,txtApellido;
-    private Button btnRegistrar;
+    private Button btnRegistrar,btnSubir;
+    private CheckBox terminos;
     private SweetAlertDialog pDialog;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager mCallbackManager;
@@ -75,8 +81,7 @@ public class RegistroActivity extends AppCompatActivity {
     private static List<User> mListUser;
     private static final String TAG = RegistroActivity.class.getSimpleName();
     private ValueEventListener listen;
-    private static String imagen,name;
-    private String appname="",applastname="";
+    private static String imagen=null,name;
     private String appbirthday="";
     private FirebaseAuth mAuth;
     private CircleImageView imgPerfil;
@@ -86,7 +91,6 @@ public class RegistroActivity extends AppCompatActivity {
     private File outPutFile = null;
     private String mCurrentPhotoPath;
     private Bitmap bitmap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +125,8 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         btnRegistrar=(Button) findViewById(R.id.btnRegistrar);
+        btnSubir=(Button) findViewById(R.id.btnSubir);
+        terminos=(CheckBox) findViewById(R.id.ckTer);
         txtEstatura=(EditText) findViewById(R.id.txtEstatura);
         txtPeso=(EditText) findViewById(R.id.txtPeso);
         txtEdad=(EditText) findViewById(R.id.txtEdad);
@@ -137,6 +143,25 @@ public class RegistroActivity extends AppCompatActivity {
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
         databaseUsers.keepSynced(true);
         app = new AppPreferences(getApplicationContext());
+
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out" );
+
+                }
+                // ...
+            }
+        };
+
+
 
         listen= new ValueEventListener() {
             @Override
@@ -168,23 +193,41 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String mensaje="";
-                if(txtNombre.getText().toString().equals("")){
-                    mensaje+=getResources().getString(R.string.error_name);
-                }
-                if(txtApellido.getText().toString().equals("")){
-                    mensaje+=getResources().getString(R.string.error_apellido);
-                }
-                if(txtEmail.getText().toString().equals("")){
-                    mensaje+=getResources().getString(R.string.error_email);
-                }
-                if(txtPass.getText().toString().equals("")){
-                    mensaje+=getResources().getString(R.string.error_pass);
-                }
-                if(!mensaje.equals("")){
-                    pDialog= new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
+                if(terminos.isChecked()) {
+
+                    String mensaje = "";
+                    if (txtNombre.getText().toString().equals("")) {
+                        mensaje += getResources().getString(R.string.error_name)+"\n";
+                    }
+                    if (txtApellido.getText().toString().equals("")) {
+                        mensaje += getResources().getString(R.string.error_apellido)+"\n";
+                    }
+                    if (txtEmail.getText().toString().equals("")) {
+                        mensaje += getResources().getString(R.string.error_email)+"\n";
+                    }
+                    if (txtPass.getText().toString().equals("")) {
+                        mensaje += getResources().getString(R.string.error_pass)+"\n";
+                    }
+                    if (!mensaje.equals("")) {
+                        pDialog = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        pDialog.setTitleText(getResources().getString(R.string.app_name));
+                        pDialog.setContentText(mensaje);
+                        pDialog.setConfirmText(getResources().getString(R.string.ok));
+                        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
+                        pDialog.show();
+                        return;
+                    }else {
+                        createUser();
+                    }
+                }else{
+                    pDialog = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
                     pDialog.setTitleText(getResources().getString(R.string.app_name));
-                    pDialog.setContentText(mensaje);
+                    pDialog.setContentText(getResources().getString(R.string.aceptar_terminos));
                     pDialog.setConfirmText(getResources().getString(R.string.ok));
                     pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
@@ -193,10 +236,7 @@ public class RegistroActivity extends AppCompatActivity {
                         }
                     });
                     pDialog.show();
-                    return;
                 }
-
-                login();
 
 
 
@@ -213,12 +253,19 @@ public class RegistroActivity extends AppCompatActivity {
             }
         });
 
+        btnSubir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFileChooser();
+            }
+        });
+
 
 
 
     }
 
-    private void login()
+    private void createUser()
     {
         mAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPass.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -255,12 +302,25 @@ public class RegistroActivity extends AppCompatActivity {
                                 });
                                 pDialog.show();
 
-                                insertUser("");
+                                insertUser();
                                 databaseUsers.removeEventListener(listen);
 
                             }else
                             {
-                                insertUser("");
+                                pDialog= new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                                pDialog.setTitleText(getResources().getString(R.string.app_name));
+                                pDialog.setContentText(getString(R.string.user_create));
+                                pDialog.setConfirmText(getResources().getString(R.string.ok));
+                                pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                        finish();
+                                    }
+                                });
+                                pDialog.show();
+
+                                insertUser();
                                 databaseUsers.removeEventListener(listen);
                             }
                         }
@@ -363,7 +423,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     }
 
-    public  void insertUser(String imagen)
+    public  void insertUser()
     {
 
 
@@ -414,12 +474,12 @@ public class RegistroActivity extends AppCompatActivity {
                     imagen="";
                 }
                 data.setUrl_imagen(imagen);
-                data.setName(appname);
-                data.setLastname(applastname);
+                data.setName(txtNombre.getText().toString());
+                data.setLastname(txtApellido.getText().toString());
                 data.setFecha_nac(appbirthday);
-                data.setEdad("");
-                data.setEstatura("");
-                data.setPeso("");
+                data.setEdad(txtEdad.getText().toString());
+                data.setEstatura(txtEstatura.getText().toString());
+                data.setPeso(txtPeso.getText().toString());
                 data.setLat("0");
                 data.setLog("0");
                 data.setFirebase_code("");
@@ -462,7 +522,7 @@ public class RegistroActivity extends AppCompatActivity {
 
         }
 
-        finish();
+
 
 
     }
@@ -588,6 +648,25 @@ public class RegistroActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
+    }
+
+    @Override
+    public void onPickResult(PickResult r) {
+        if (r.getError() == null) {
+            //If you want the Uri.
+            //Mandatory to refresh image from Uri.
+            //getImageView().setImageURI(null);
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            r.getBitmap().compress(Bitmap.CompressFormat.PNG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(),  r.getBitmap(), "temp", null);
+            performCrop(Uri.parse(path));
+
+        } else {
+            //Handle possible errors
+            //TODO: do what you have to do with r.getError();
+            Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
 }
