@@ -3,7 +3,7 @@
     xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contenedor"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="150dp"
     android:background="@drawable/ic_bg_semanas"
     android:gravity="left|center"
     android:orientation="horizontal">
@@ -15,17 +15,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.60"
             android:orientation="vertical">
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="bottom|center"
+                android:gravity="bottom"
                 android:text="TextView"
                 android:textColor="@android:color/white" />
 
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="top|center"
+                android:gravity="top"
                 android:text="TextView" />
         </LinearLayout>
 

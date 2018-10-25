@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView txtReto;
 
+    private ArrayList<Semanas> mListSemanas= new ArrayList<Semanas>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,6 +188,9 @@ public class MainActivity extends AppCompatActivity {
 
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
         databaseUsers.keepSynced(true);
+
+
+
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -423,5 +428,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }
+
+
 
 }

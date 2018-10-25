@@ -1,6 +1,8 @@
 package app.karlafit.com.activity;
 
+import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +14,19 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -28,8 +37,10 @@ public class SemanasActivity extends Fragment {
 
 
     private RecyclerView mSemanasRecyclerView;
-    private ArrayList<Semanas> mListSemanas;
+    public static ArrayList<Semanas> mListSemanas;
     private SemanasRecycleAdapter mSemanasAdapter;
+    private DatabaseReference databaseSemanas;
+    private ProgressBar progress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -44,18 +55,24 @@ public class SemanasActivity extends Fragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
 
+        databaseSemanas = FirebaseDatabase.getInstance().getReference("semanas");
+        databaseSemanas.keepSynced(true);
+
+
+
         mSemanasRecyclerView = (RecyclerView) view.findViewById(R.id.semanas_recycler_view);
+        progress = (ProgressBar) view.findViewById(R.id.progress);
         // Create a grid layout with two columns
 
         mListSemanas = new ArrayList<Semanas>();
 
-        mListSemanas.add(new Semanas("1","semana 1","semana 1 sub","2 libras"));
+        /*mListSemanas.add(new Semanas("1","semana 1","semana 1 sub","2 libras"));
         mListSemanas.add(new Semanas("2","semana 2","semana 2 sub","3 libras"));
         mListSemanas.add(new Semanas("3","semana 3","semana 3 sub","4 libras"));
         mListSemanas.add(new Semanas("4","semana 4","semana 4 sub","5 libras"));
         mListSemanas.add(new Semanas("5","semana 5","semana 5 sub","6 libras"));
         mListSemanas.add(new Semanas("6","semana 6","semana 6 sub","7 libras"));
-        mListSemanas.add(new Semanas("7","semana 6","semana 7 sub","8 libras"));
+        mListSemanas.add(new Semanas("7","semana 6","semana 7 sub","8 libras"));*/
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
 
@@ -63,7 +80,50 @@ public class SemanasActivity extends Fragment {
         mSemanasAdapter = new SemanasRecycleAdapter();
         mSemanasRecyclerView.setAdapter(mSemanasAdapter);
 
+        cargaSemanas();
+
     }
+
+    private void cargaSemanas()
+    {
+        databaseSemanas.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                //clearing the previous artist list
+                mListSemanas.clear();
+
+                //iterating through all the nodes
+                for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting artist
+                    Semanas semana = postSnapshot.getValue(Semanas.class);
+
+                    mListSemanas.add(semana);
+
+                }
+
+                if (mListSemanas.size() > 0) {
+
+                    progress.setVisibility(View.GONE);
+                    mSemanasAdapter.notifyDataSetChanged();
+                    mSemanasRecyclerView.setVisibility(View.VISIBLE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+
+        });
+    }
+
+
 
 
     /* adapter*/
@@ -75,7 +135,7 @@ public class SemanasActivity extends Fragment {
         public SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_semana, viewGroup, false);
-            setAnimation(v,i);
+            //setAnimation(v,i);
             return new SemanasRecycleHolder(v);
         }
 
@@ -88,7 +148,33 @@ public class SemanasActivity extends Fragment {
             productHolder.mLibras.setText(mListSemanas.get(i).getLibras());
 
 
-            /*Glide.with(MainActivity.this).load(mListSemanas.get(i).getLibras()).into(new SimpleTarget<GlideDrawable>() {
+            Glide.with(getActivity()).load(mListSemanas.get(i).getImagen()).into(new SimpleTarget<GlideDrawable>() {
+                @Override
+                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        productHolder.mContenedor.setBackground(resource);
+                    }else
+                    {
+                        productHolder.mContenedor.setBackground(resource);
+                    }
+                }
+            });
+
+            productHolder.mContenedor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getActivity(), SemanaActivity.class);
+                    intent.putExtra("id",String.valueOf(i));
+                    startActivity(intent);
+
+                }
+            });
+
+
+
+
+            /*Glide.with(SemanasActivity.this).load(R.drawable.ic_bg_semanas).into(new SimpleTarget<GlideDrawable>() {
                 @Override
                 public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -96,15 +182,6 @@ public class SemanasActivity extends Fragment {
                     }
                 }
             });*/
-
-            Glide.with(SemanasActivity.this).load(R.drawable.ic_bg_semanas).into(new SimpleTarget<GlideDrawable>() {
-                @Override
-                public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        productHolder.mContenedor.setBackground(resource);
-                    }
-                }
-            });
 
             // setAnimation(productHolder.itemView, i);
 

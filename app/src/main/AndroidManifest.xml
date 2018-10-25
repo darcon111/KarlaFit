@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider"
@@ -27,7 +26,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/picker_provider_paths" />
         </provider>
-
 
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.SplashActivity">
@@ -83,9 +81,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.ContrasenaActivity"></activity>
-        <activity android:name=".activity.RecuperarActivity"></activity>
-
+        <activity android:name=".activity.ContrasenaActivity" />
+        <activity android:name=".activity.RecuperarActivity" />
+        <activity android:name=".activity.SemanaActivity" />
+        <activity android:name=".activity.SemanaDiaActivity" />
+        <activity android:name=".activity.VideoActivity"></activity>
     </application>
 
 </manifest>

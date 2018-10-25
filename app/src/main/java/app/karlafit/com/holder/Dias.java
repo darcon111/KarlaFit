@@ -1,16 +1,34 @@
 package app.karlafit.com.holder;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class Semanas {
+public class Dias {
 
     private String id;
     private String title;
     private String subtitle;
-    private String libras;
+    private String semana_id;
     private String imagen;
-    private String title2;
+    private String tiempo;
     private String descripcion;
+    private String video;
+
+
+    public Dias(String id, String title, String subtitle, String semana_id, String imagen, String tiempo, String descripcion, String video) {
+        this.id = id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.semana_id = semana_id;
+        this.imagen = imagen;
+        this.tiempo = tiempo;
+        this.descripcion = descripcion;
+        this.video = video;
+    }
+
+
+    public Dias() {
+    }
 
     public String getId() {
         return id;
@@ -36,12 +54,12 @@ public class Semanas {
         this.subtitle = subtitle;
     }
 
-    public String getLibras() {
-        return libras;
+    public String getSemana_id() {
+        return semana_id;
     }
 
-    public void setLibras(String libras) {
-        this.libras = libras;
+    public void setSemana_id(String semana_id) {
+        this.semana_id = semana_id;
     }
 
     public String getImagen() {
@@ -52,12 +70,12 @@ public class Semanas {
         this.imagen = imagen;
     }
 
-    public String getTitle2() {
-        return title2;
+    public String getTiempo() {
+        return tiempo;
     }
 
-    public void setTitle2(String title2) {
-        this.title2 = title2;
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
     }
 
     public String getDescripcion() {
@@ -68,15 +86,11 @@ public class Semanas {
         this.descripcion = descripcion;
     }
 
-    public Semanas()
-    {
-
+    public String getVideo() {
+        return video;
     }
 
-    public Semanas(String id, String title, String subtitle, String libras) {
-        this.id = id;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.libras = libras;
+    public void setVideo(String video) {
+        this.video = video;
     }
 }
