@@ -1,5 +1,6 @@
 package app.karlafit.com.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import app.karlafit.com.R;
+import app.karlafit.com.config.Constants;
 import app.karlafit.com.holder.Semanas;
 
 public class SemanasActivity extends Fragment {
@@ -73,8 +75,16 @@ public class SemanasActivity extends Fragment {
         mListSemanas.add(new Semanas("5","semana 5","semana 5 sub","6 libras"));
         mListSemanas.add(new Semanas("6","semana 6","semana 6 sub","7 libras"));
         mListSemanas.add(new Semanas("7","semana 6","semana 7 sub","8 libras"));*/
+        int screen = Constants.deterScreenSize(getContext());
+        if(screen ==0 || screen ==1)
+        {
+            screen = 1;
+        }else
+        {
+            screen = 2;
+        }
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(screen, 1);
 
         mSemanasRecyclerView.setLayoutManager(layoutManager);
         mSemanasAdapter = new SemanasRecycleAdapter();

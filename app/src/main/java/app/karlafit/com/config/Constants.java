@@ -508,6 +508,38 @@ public class Constants {
         return true;
     }
 
+    public static int deterScreenSize(Context context) {
+
+        if((context.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+
+            //Toast.makeText(this, "Large screen",Toast.LENGTH_LONG).show();
+            return 2;
+
+        }else if ((context.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+
+            //Toast.makeText(this, "Normal sized screen" , Toast.LENGTH_LONG).show();
+            return 1;
+
+        }else if ((context.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+
+            //Toast.makeText(this, "Small sized screen" , Toast.LENGTH_LONG).show();
+            return 0;
+
+        }else if ((context.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+
+            //Toast.makeText(this, "XLarge sized screen" , Toast.LENGTH_LONG).show();
+            return 3;
+
+        }else {
+            //Toast.makeText(this, "El tamaño de la pantalla no es ni X grande, ni grande, ni normal o pequeña" , Toast.LENGTH_LONG).show();
+                return 0;
+        }
+    }
+
 
 
 

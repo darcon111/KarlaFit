@@ -44,6 +44,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = MainActivity.class.getName();
     private String name="Usuario";
     private DatabaseReference databaseUsers;
-    private AppPreferences appPreferences;
+    private AppPreferences app;
     private User Utemp;
     private SweetAlertDialog pDialog;
     private String provider;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        appPreferences = new AppPreferences(MainActivity.this);
+        app = new AppPreferences(MainActivity.this);
 
         /* toolbar*/
         toolbar = (Toolbar) findViewById(R.id.toolbaruser);
@@ -266,6 +267,20 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onCancelled", databaseError.toException());
             }
         });
+
+
+        /*update user */
+        if (app.getFlag().equals("1")) {
+
+
+            databaseUsers.child(user.getEmail()).child("firebase_code").setValue(app.getFirebasetoken());
+            //app.setUserId(data[0].getId());
+            app.setFlag("0");
+
+        }
+
+        //tema
+        FirebaseMessaging.getInstance().subscribeToTopic("karlaBoletin");
 
 
     }
