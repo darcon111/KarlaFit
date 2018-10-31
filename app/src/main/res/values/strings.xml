@@ -61,4 +61,5 @@
     <string name="sd">Card</string>
     <string name="image">Seleccione una imagen</string>
     <string name="user_facebook">Usuario registrado con Facebook por favor logearse con este</string>
+    <string name="error_internet">Por favor verifique se conexión de intertnet</string>
 </resources>

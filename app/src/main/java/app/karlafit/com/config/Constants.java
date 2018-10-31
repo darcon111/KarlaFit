@@ -45,6 +45,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,6 +83,7 @@ public class Constants {
         NetworkInfo info = cm.getActiveNetworkInfo();
         if(info==null || !info.isConnected())
             return "-"; //not connected
+
         if(info.getType() == ConnectivityManager.TYPE_WIFI)
             return "WIFI";
         if(info.getType() == ConnectivityManager.TYPE_MOBILE){
@@ -109,7 +111,7 @@ public class Constants {
                     return "0";
             }
         }
-        return "0";
+        return "-";
     }
 
 
@@ -539,6 +541,17 @@ public class Constants {
                 return 0;
         }
     }
+
+
+    public static String formatTime(int milesegundos)
+    {
+
+        return  String.format("%02d:%02d",
+            TimeUnit.MILLISECONDS.toMinutes(milesegundos),
+            TimeUnit.MILLISECONDS.toSeconds(milesegundos) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milesegundos)));
+    }
+
 
 
 

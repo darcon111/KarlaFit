@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".clases.AppController"
@@ -15,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon">
+        android:configChanges="screenSize|orientation"
+        tools:replace="android:icon"
+        tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider"
@@ -85,7 +88,9 @@
         <activity android:name=".activity.RecuperarActivity" />
         <activity android:name=".activity.SemanaActivity" />
         <activity android:name=".activity.SemanaDiaActivity" />
-        <activity android:name=".activity.VideoActivity"></activity>
+        <activity android:name=".activity.VideoActivity"
+            android:configChanges="screenSize|orientation"
+            ></activity>
     </application>
 
 </manifest>

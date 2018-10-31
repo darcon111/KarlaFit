@@ -1,6 +1,7 @@
 package app.karlafit.com.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -36,8 +37,10 @@ import java.util.List;
 
 import app.karlafit.com.R;
 import app.karlafit.com.clases.User;
+import app.karlafit.com.config.Constants;
 import app.karlafit.com.holder.Dias;
 import app.karlafit.com.holder.Semanas;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
@@ -54,11 +57,13 @@ public class SemanaDiaActivity extends AppCompatActivity {
     private String TAG = SemanaDiaActivity.class.getName();
     private TextView title;
     private int selectVideo;
+    private SweetAlertDialog pDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_semana_dia);
 
         if (getIntent().hasExtra("id")) {
@@ -119,9 +124,33 @@ public class SemanaDiaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SemanaDiaActivity.this, VideoActivity.class);
-                intent.putExtra("id",String.valueOf(selectVideo));
-                startActivity(intent);
+                if(!Constants.getNetworkClass(SemanaDiaActivity.this).equals("-")) {
+
+                    Intent intent = new Intent(SemanaDiaActivity.this, VideoActivity.class);
+                    intent.putExtra("id", String.valueOf(selectVideo));
+                    startActivity(intent);
+                }else
+                {
+                    pDialog = new SweetAlertDialog(SemanaDiaActivity.this, SweetAlertDialog.WARNING_TYPE);
+                    pDialog.setTitleText(getResources().getString(R.string.app_name));
+                    pDialog.setContentText(getResources().getString(R.string.error_internet));
+                    pDialog.setConfirmText(getString(R.string.yes));
+                    pDialog.setCancelText(getString(R.string.no));
+                    pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+
+                        }
+                    });
+                    pDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            sweetAlertDialog.cancel();
+                        }
+                    });
+                    pDialog.show();
+                }
 
             }
         });

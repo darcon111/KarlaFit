@@ -1,6 +1,7 @@
 package app.karlafit.com.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
         app = new AppPreferences(MainActivity.this);
@@ -260,6 +262,16 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 menu();
+
+                /*update user */
+                if (app.getFlag().equals("1")) {
+
+
+                    databaseUsers.child(Utemp.getId()).child("firebase_code").setValue(app.getFirebasetoken());
+                    //app.setUserId(data[0].getId());
+                    app.setFlag("0");
+
+                }
             }
 
             @Override
@@ -269,15 +281,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*update user */
-        if (app.getFlag().equals("1")) {
 
-
-            databaseUsers.child(user.getEmail()).child("firebase_code").setValue(app.getFirebasetoken());
-            //app.setUserId(data[0].getId());
-            app.setFlag("0");
-
-        }
 
         //tema
         FirebaseMessaging.getInstance().subscribeToTopic("karlaBoletin");
