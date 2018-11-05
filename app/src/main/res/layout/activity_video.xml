@@ -6,14 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".activity.VideoActivity">
 
-    <VideoView
+
+    <FrameLayout
+        android:id="@+id/videoSurfaceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <SurfaceView
+            android:id="@+id/videoSurface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+
+
+    <!--<VideoView
         android:id="@+id/video"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -26,6 +46,7 @@
         android:layout_marginBottom="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -38,12 +59,24 @@
             android:layout_weight="0.10"
             app:srcCompat="@drawable/ic_pause" />
 
-        <ProgressBar
+        <!--<ProgressBar
             android:id="@+id/progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1" />-->
+
+        <SeekBar
+            android:id="@+id/control"
+            style="@android:style/Widget.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:foreground="@color/colorAccent"
+            android:max="100"
+            android:progress="1"
+            android:soundEffectsEnabled="true" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -82,9 +115,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/video"
-        app:layout_constraintEnd_toEndOf="@+id/video"
-        app:layout_constraintStart_toStartOf="@+id/video"
-        app:layout_constraintTop_toTopOf="@+id/video" />
+        app:layout_constraintBottom_toBottomOf="@+id/videoSurfaceContainer"
+        app:layout_constraintEnd_toEndOf="@+id/videoSurfaceContainer"
+        app:layout_constraintStart_toStartOf="@+id/videoSurfaceContainer"
+        app:layout_constraintTop_toTopOf="@+id/videoSurfaceContainer" />
+
 
 </android.support.constraint.ConstraintLayout>

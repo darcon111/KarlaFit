@@ -1,38 +1,53 @@
 package app.karlafit.com.activity;
 
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
 
 import app.karlafit.com.R;
-import app.karlafit.com.config.AppPreferences;
+import app.karlafit.com.clases.VideoControllerView;
 import app.karlafit.com.config.Constants;
 
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity  implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener, VideoControllerView.MediaPlayerControl  {
 
     private int id;
-    private VideoView videoView;
-    private ProgressBar loading,progress;
-    private ImageView play;
-    private TextView tiempo1,tiempo2;
 
+    //private VideoView videoView;
+    private ProgressBar loading;
+    //private ImageView play;
+    //private TextView tiempo1,tiempo2;
+    //private SeekBar progress;
+    //private AudioMediaController media;
+
+
+    SurfaceView videoSurface;
+    MediaPlayer player;
+    VideoControllerView controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,30 +72,60 @@ public class VideoActivity extends AppCompatActivity {
             throw new IllegalArgumentException("Activity cannot find  extras " );
         }
 
-        videoView = (VideoView) findViewById(R.id.video);
-        play = (ImageView) findViewById(R.id.play);
+        videoSurface = (SurfaceView) findViewById(R.id.videoSurface);
+        SurfaceHolder videoHolder = videoSurface.getHolder();
+        videoHolder.addCallback(this);
+
+        player = new MediaPlayer();
+        controller = new VideoControllerView(this);
+
+        try {
+            player.setAudioStreamType(AudioManager.MODE_NORMAL);
+            final Uri video = Uri.parse(SemanaDiaActivity.mListDias.get(id).getVideo());
+            player.setDataSource(this, video);
+            player.setOnPreparedListener(this);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+       /* videoView = (VideoView) findViewById(R.id.video);
+        play = (ImageView) findViewById(R.id.play);*/
         loading = (ProgressBar) findViewById(R.id.loading);
-        progress = (ProgressBar) findViewById(R.id.progress);
-        tiempo1 = (TextView) findViewById(R.id.tiempo1);
-        tiempo2 = (TextView) findViewById(R.id.tiempo2);
 
-        progress.getProgressDrawable().setColorFilter(
-                getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);
+        /*tiempo1 = (TextView) findViewById(R.id.tiempo1);
+        tiempo2 = (TextView) findViewById(R.id.tiempo2);*/
 
-        final Uri video = Uri.parse(SemanaDiaActivity.mListDias.get(id).getVideo());
+        /*progress = (SeekBar) findViewById(R.id.control);
+        media = new AudioMediaController(this);*/
 
-        try
+
+        /*progress.getProgressDrawable().setColorFilter(
+                getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.SRC_IN);*/
+
+
+
+
+
+        /*try
         {
             videoView.setVideoURI(video);
         }catch (Exception e)
         {
 
-        }
+        }*/
 
 
 
 
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        /*videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 if (isFinishing())
@@ -88,7 +133,7 @@ public class VideoActivity extends AppCompatActivity {
 
               finish();
             }
-        });
+        });*/
 
 
 
@@ -105,7 +150,7 @@ public class VideoActivity extends AppCompatActivity {
             }
         });*/
 
-        play.setOnClickListener(new View.OnClickListener() {
+        /*play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -130,75 +175,147 @@ public class VideoActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
+
+
+       /* videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            public void onPrepared(MediaPlayer mp) {
+
+                videoView.start();
+                videoView.setMediaController(media);
+                media.setAnchorView(videoView);
+                play.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
+
+            }
+        });*/
 
 
 
-        new VideoAsync().execute();
+        //new VideoAsync().execute();
 
 
     }
 
-    private class VideoAsync extends AsyncTask<Void, Integer, Void>
-    {
-        int duration = 0;
-        int current = 0;
-        @Override
-        protected Void doInBackground(Void... params) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        controller.show();
+        return false;
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        controller.setMediaPlayer(this);
+        controller.setAnchorView((FrameLayout) findViewById(R.id.videoSurfaceContainer));
+        loading.setVisibility(View.GONE);
+        player.start();
+
+    }
+
+    @Override
+    public void start() {
+        player.start();
+    }
+
+    @Override
+    public void pause() {
+        player.pause();
+    }
+
+    @Override
+    public int getDuration() {
+        return player.getDuration();
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        return player.getCurrentPosition();
+    }
+
+    @Override
+    public void seekTo(int pos) {
+        player.seekTo(pos);
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return player.isPlaying();
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canPause() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        return true;
+    }
+
+    @Override
+    public boolean isFullScreen() {
+        return false;
+    }
+
+    @Override
+    public void toggleFullScreen() {
+
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        player.setDisplay(holder);
+        player.prepareAsync();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-
-            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-                public void onPrepared(MediaPlayer mp) {
-
-                    videoView.start();
-                    play.setVisibility(View.VISIBLE);
-                    progress.setVisibility(View.VISIBLE);
-                    loading.setVisibility(View.GONE);
-
-                    duration = videoView.getDuration();
-
-
-                    tiempo1.setText("/"+ Constants.formatTime(duration));
-                }
-            });
-
-            do {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                current = videoView.getCurrentPosition();
-
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        tiempo2.setText(Constants.formatTime(current));
-                    }
-                });
-
-
-
-                try {
-                    publishProgress((int) (current * 100 / duration));
-                    if(progress.getProgress() >= 100){
-                        break;
-                    }
-                } catch (Exception e) {
-                }
-            } while (progress.getProgress() <= 100);
-
-            return null;
+        if(player.isPlaying())
+        {
+            player.stop();
         }
+        finish();
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            System.out.println(values[0]);
-            progress.setProgress(values[0]);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //onBackPressed();
+                if(player.isPlaying())
+                {
+                    player.stop();
+                }
+                finish();
+                //------------
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

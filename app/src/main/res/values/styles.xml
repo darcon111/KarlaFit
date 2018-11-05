@@ -200,4 +200,12 @@
         <attr name="ms_dropDownHintView" format="reference"/>
     </declare-styleable>
 
+
+        <style name="Theme_MusicPlayer">
+            <item name="android:textColor">#e0006a</item>
+            <item name="colorAccent">#e0006a</item>
+            <item name="android:textColorPrimary">@color/colorAccent</item>
+        </style>
+
+
 </resources>

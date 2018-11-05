@@ -67,7 +67,7 @@ public class FCMService extends FirebaseMessagingService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            notificacion (remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            notificacion (remoteMessage.getData().get("title"),remoteMessage.getData().get("message"));
         }
 
 
