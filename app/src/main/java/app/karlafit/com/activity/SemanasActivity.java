@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import app.karlafit.com.R;
 import app.karlafit.com.config.Constants;
 import app.karlafit.com.holder.Semanas;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SemanasActivity extends Fragment {
 
@@ -43,6 +44,7 @@ public class SemanasActivity extends Fragment {
     private SemanasRecycleAdapter mSemanasAdapter;
     private DatabaseReference databaseSemanas;
     private ProgressBar progress;
+    private SweetAlertDialog pDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -170,16 +172,52 @@ public class SemanasActivity extends Fragment {
                 }
             });
 
-            productHolder.mContenedor.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    Intent intent = new Intent(getActivity(), SemanaActivity.class);
-                    intent.putExtra("id",String.valueOf(i));
-                    startActivity(intent);
+                productHolder.mContenedor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                }
-            });
+
+                        if(i>=3 && MainActivity.Utemp.getPago().equals("N")) {
+
+                            pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE);
+                            pDialog.setTitleText(getResources().getString(R.string.app_name));
+                            pDialog.setContentText(getResources().getString(R.string.msg_pago));
+                            pDialog.setConfirmText(getString(R.string.yes));
+                            pDialog.setCancelText(getString(R.string.no));
+                            pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+
+
+                                    Intent intent = new Intent(getContext(), PayPal.class);
+                                    intent.putExtra("costo", Constants.costo);
+                                    startActivity(intent);
+
+                                }
+                            });
+                            pDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.cancel();
+                                }
+                            });
+                            pDialog.show();
+                        }else
+                        {
+
+                            Intent intent = new Intent(getActivity(), SemanaActivity.class);
+                            intent.putExtra("id", String.valueOf(i));
+                            startActivity(intent);
+                        }
+
+
+
+
+                    }
+                });
+
 
 
 

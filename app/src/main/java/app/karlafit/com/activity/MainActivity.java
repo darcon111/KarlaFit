@@ -76,16 +76,15 @@ public class MainActivity extends AppCompatActivity {
     private String name="Usuario";
     private DatabaseReference databaseUsers;
     private AppPreferences app;
-    private User Utemp;
+    public  static User Utemp;
     private SweetAlertDialog pDialog;
     private String provider;
     private String imagen;
 
     private ImageButton btnMenu;
 
-    private TextView txtReto;
 
-    private ArrayList<Semanas> mListSemanas= new ArrayList<Semanas>();
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,8 +139,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//Initializing the tablayout
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        //Initializing the tablayout
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setEnabled(false);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            //noinspection ConstantConditions
+            TextView tv = (TextView)LayoutInflater.from(this).inflate(R.layout.custom_tab,null);
+            //tv.setTypeface(Typeface);
+            tabLayout.getTabAt(i).setCustomView(tv);
+        }
+
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -178,14 +187,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            // Let's first dynamically add a fragment into a frame container
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.contenedor, new SemanasActivity(), "SOMETAG").
                     commit();
-
-            // Now later we can lookup the fragment by tag
-            //DemoFragment fragmentDemo = (DemoFragment)
-                //    getSupportFragmentManager().findFragmentByTag("SOMETAG");
         }
 
 
@@ -272,6 +276,13 @@ public class MainActivity extends AppCompatActivity {
                     app.setFlag("0");
 
                 }
+
+
+                tabLayout.setEnabled(true);
+
+
+
+
             }
 
             @Override

@@ -101,6 +101,8 @@ public class SemanaDiaActivity extends AppCompatActivity {
         txtTitulo2.setText(SemanasActivity.mListSemanas.get(id).getTitle2());
         txtDescri.setText(SemanasActivity.mListSemanas.get(id).getDescripcion());
 
+        Constants.justify(txtDescri);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             txtDescri.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
 

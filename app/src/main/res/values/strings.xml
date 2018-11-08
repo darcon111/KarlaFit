@@ -62,5 +62,10 @@
     <string name="image">Seleccione una imagen</string>
     <string name="user_facebook">Usuario registrado con Facebook por favor logearse con este</string>
     <string name="error_internet">Por favor verifique se conexión de intertnet</string>
+    <string name="msg_pago">Para poder ver las demas semanas es necesario que haga el pago!!!</string>
+    <string name="Text_Payment_to">Pago de App</string>
+    <string name="gracias_pago">Gracias por su pago!!!</string>
+    <string name="prepara">Preparación</string>
+    <string name="ingred">Ingredientes</string>
 
-   </resources>
+</resources>

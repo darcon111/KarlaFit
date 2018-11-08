@@ -24,6 +24,7 @@ public class User {
     private String estatura;
     private String edad;
     private String peso;
+    private String pago;
 
 
 
@@ -156,7 +157,20 @@ public class User {
         this.peso = peso;
     }
 
-    public User(String id, String email, String url_imagen, String firebase_code, String provider, String date_created, String firebaseId, String name, String lastname, String fecha_nac, String lat, String log, String mobile, String estatura, String edad, String peso) {
+    public String getPago() {
+        return pago;
+    }
+
+    public void setPago(String pago) {
+        this.pago = pago;
+    }
+
+
+
+    public User() {
+    }
+
+    public User(String id, String email, String url_imagen, String firebase_code, String provider, String date_created, String firebaseId, String name, String lastname, String fecha_nac, String lat, String log, String mobile, String estatura, String edad, String peso, String pago) {
         this.id = id;
         this.email = email;
         this.url_imagen = url_imagen;
@@ -173,8 +187,6 @@ public class User {
         this.estatura = estatura;
         this.edad = edad;
         this.peso = peso;
-    }
-
-    public User() {
+        this.pago = pago;
     }
 }

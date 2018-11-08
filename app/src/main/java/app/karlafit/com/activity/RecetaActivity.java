@@ -1,6 +1,5 @@
 package app.karlafit.com.activity;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
@@ -8,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,20 +22,20 @@ import app.karlafit.com.config.Constants;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
-public class SemanaActivity extends AppCompatActivity {
+public class RecetaActivity extends AppCompatActivity {
 
-    private int id;
-    private RelativeLayout semana;
+    private RelativeLayout receta;
     private Toolbar toolbar;
-    private TextView txtHoras,txtTitulo2;
-    private JustifiedTextView txtDescri;
-    private ImageView play;
+    private TextView txtTitle,txtSub;
+    private JustifiedTextView txtDescri,txtIngre,txtPre;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_semana);
+        setContentView(R.layout.activity_receta);
+
 
         if (getIntent().hasExtra("id")) {
             id = Integer.parseInt(getIntent().getStringExtra("id"));
@@ -50,7 +48,7 @@ public class SemanaActivity extends AppCompatActivity {
 
         TextView title = (TextView) findViewById(R.id.txtTitle);
 
-        title.setText(SemanasActivity.mListSemanas.get(id).getTitle());
+        title.setText(getString(R.string.receta));
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -63,38 +61,47 @@ public class SemanaActivity extends AppCompatActivity {
         }
 
 
-        semana = (RelativeLayout) findViewById(R.id.semana);
-        txtHoras = (TextView) findViewById(R.id.txtHoras);
-        txtTitulo2 = (TextView) findViewById(R.id.txtTitulo2);
+        receta = (RelativeLayout) findViewById(R.id.receta);
+        txtTitle = (TextView) findViewById(R.id.txtTitulo);
+        txtSub = (TextView) findViewById(R.id.txtSub);
         txtDescri = (JustifiedTextView) findViewById(R.id.txtDescri);
-        play = (ImageView) findViewById(R.id.play);
+        txtIngre = (JustifiedTextView) findViewById(R.id.txtIngre);
+        txtPre = (JustifiedTextView) findViewById(R.id.txtPrepa);
 
-        txtHoras.setText(SemanasActivity.mListSemanas.get(id).getSubtitle());
-        txtTitulo2.setText(SemanasActivity.mListSemanas.get(id).getTitle2());
-        txtDescri.setText(SemanasActivity.mListSemanas.get(id).getDescripcion());
+        txtTitle.setText(RecetasActivity.mListRecetas.get(id).getTitulo());
+        txtSub.setText(RecetasActivity.mListRecetas.get(id).getCalorias()+"/"+RecetasActivity.mListRecetas.get(id).getTiempo());
+        txtDescri.setText(RecetasActivity.mListRecetas.get(id).getDescripcion());
+        txtIngre.setText(RecetasActivity.mListRecetas.get(id).getIngredientes());
+        txtPre.setText(RecetasActivity.mListRecetas.get(id).getPreparacion());
 
 
 
 
-        Glide.with(SemanaActivity.this).load(SemanasActivity.mListSemanas.get(id).getImagen()).into(new SimpleTarget<GlideDrawable>() {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            txtPre.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            txtDescri.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            txtIngre.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }else
+        {*/
+            //Constants.justify(txtDescri);
+            //Constants.justify(txtIngre);
+            //Constants.justify(txtPre);
+        /*}*/
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            txtDescri.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
+
+
+        Glide.with(RecetaActivity.this).load(RecetasActivity.mListRecetas.get(id).getImagen()).into(new SimpleTarget<GlideDrawable>() {
             @Override
             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    semana.setBackground(resource);
+                    receta.setBackground(resource);
                 }else
                 {
-                    semana.setBackground(resource);
+                    receta.setBackground(resource);
                 }
-            }
-        });
-
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(SemanaActivity.this, SemanaDiaActivity.class);
-                intent.putExtra("id",String.valueOf(id));
-                startActivity(intent);
             }
         });
 
@@ -123,4 +130,7 @@ public class SemanaActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
 }

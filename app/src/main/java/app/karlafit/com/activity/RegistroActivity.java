@@ -487,6 +487,7 @@ public class RegistroActivity extends AppCompatActivity implements
                 data.setMobile("1");
                 data.setDate_created(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date));
                 data.setProvider(provider);
+                data.setPago("N");
 
                 //Saving
                 databaseUsers.child(id).setValue(data);
