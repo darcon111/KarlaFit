@@ -35,14 +35,21 @@ public class SemanaDietas {
     }
 
 
-    public SemanaDietas()
-    {
-
+    public String getImagen() {
+        return imagen;
     }
 
-    public SemanaDietas(String id, String title, String subtitle) {
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public SemanaDietas(String id, String title, String subtitle, String imagen) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
+        this.imagen = imagen;
+    }
+
+    public SemanaDietas() {
     }
 }

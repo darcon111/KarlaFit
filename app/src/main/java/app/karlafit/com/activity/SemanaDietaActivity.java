@@ -53,7 +53,7 @@ public class SemanaDietaActivity extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        databaseSemanas = FirebaseDatabase.getInstance().getReference("semanas");
+        databaseSemanas = FirebaseDatabase.getInstance().getReference("semanasDietas");
         databaseSemanas.keepSynced(true);
 
 
@@ -130,11 +130,11 @@ public class SemanaDietaActivity extends Fragment {
 
     /* adapter*/
 
-    public class SemanasRecycleAdapter extends RecyclerView.Adapter<SemanasActivity.SemanasRecycleHolder> {
+    public class SemanasRecycleAdapter extends RecyclerView.Adapter<SemanasRecycleHolder> {
         private int lastPosition = -1;
 
         @Override
-        public SemanasActivity.SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        public SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_semana, viewGroup, false);
             //setAnimation(v,i);
@@ -143,7 +143,7 @@ public class SemanaDietaActivity extends Fragment {
 
 
         @Override
-        public void onBindViewHolder(final SemanasActivity.SemanasRecycleHolder productHolder, final int i) {
+        public void onBindViewHolder(final SemanasRecycleHolder productHolder, final int i) {
 
             productHolder.mTitle.setText(mListSemanas.get(i).getTitle());
             productHolder.mSubTitle.setText(mListSemanas.get(i).getSubtitle());

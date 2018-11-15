@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if(tab.getPosition()==1)
                 {
                     getSupportFragmentManager().beginTransaction().
-                            replace(R.id.contenedor, new DietaActivity(), "SOMETAG").
+                            replace(R.id.contenedor, new SemanaDietaActivity(), "SOMETAG").
                             commit();
                 }else
                 {
