@@ -1,6 +1,5 @@
 package app.karlafit.com.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -22,9 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,31 +29,29 @@ import java.util.ArrayList;
 
 import app.karlafit.com.R;
 import app.karlafit.com.config.Constants;
+import app.karlafit.com.holder.SemanaDietas;
 import app.karlafit.com.holder.Semanas;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class SemanasActivity extends Fragment {
-
+public class SemanaDietaActivity extends Fragment {
 
     private RecyclerView mSemanasRecyclerView;
-    public static ArrayList<Semanas> mListSemanas;
+    public static ArrayList<SemanaDietas> mListSemanas;
     private SemanasRecycleAdapter mSemanasAdapter;
     private DatabaseReference databaseSemanas;
     private ProgressBar progress;
     private SweetAlertDialog pDialog;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
-        return inflater.inflate(R.layout.activity_semanas, parent, false);
+        return inflater.inflate(R.layout.activity_semana_dieta, parent, false);
     }
 
-    // This event is triggered soon after onCreateView().
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
 
         databaseSemanas = FirebaseDatabase.getInstance().getReference("semanas");
         databaseSemanas.keepSynced(true);
@@ -68,7 +62,7 @@ public class SemanasActivity extends Fragment {
         progress = (ProgressBar) view.findViewById(R.id.progress);
         // Create a grid layout with two columns
 
-        mListSemanas = new ArrayList<Semanas>();
+        mListSemanas = new ArrayList<SemanaDietas>();
 
         int screen = Constants.deterScreenSize(getContext());
         if(screen ==0 || screen ==1)
@@ -87,6 +81,7 @@ public class SemanasActivity extends Fragment {
 
         cargaSemanas();
 
+
     }
 
     private void cargaSemanas()
@@ -101,7 +96,7 @@ public class SemanasActivity extends Fragment {
                 //iterating through all the nodes
                 for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting artist
-                    Semanas semana = postSnapshot.getValue(Semanas.class);
+                    SemanaDietas semana = postSnapshot.getValue(SemanaDietas.class);
 
                     mListSemanas.add(semana);
 
@@ -131,13 +126,15 @@ public class SemanasActivity extends Fragment {
 
 
 
+
+
     /* adapter*/
 
-    public class SemanasRecycleAdapter extends RecyclerView.Adapter<SemanasRecycleHolder> {
+    public class SemanasRecycleAdapter extends RecyclerView.Adapter<SemanasActivity.SemanasRecycleHolder> {
         private int lastPosition = -1;
 
         @Override
-        public SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        public SemanasActivity.SemanasRecycleHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_semana, viewGroup, false);
             //setAnimation(v,i);
@@ -146,11 +143,10 @@ public class SemanasActivity extends Fragment {
 
 
         @Override
-        public void onBindViewHolder(final SemanasRecycleHolder productHolder, final int i) {
+        public void onBindViewHolder(final SemanasActivity.SemanasRecycleHolder productHolder, final int i) {
 
             productHolder.mTitle.setText(mListSemanas.get(i).getTitle());
             productHolder.mSubTitle.setText(mListSemanas.get(i).getSubtitle());
-            productHolder.mLibras.setText(mListSemanas.get(i).getLibras());
 
 
             Glide.with(getActivity()).load(mListSemanas.get(i).getImagen()).into(new SimpleTarget<GlideDrawable>() {
@@ -166,50 +162,50 @@ public class SemanasActivity extends Fragment {
             });
 
 
-                productHolder.mContenedor.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            productHolder.mContenedor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                        if(i>=3 && MainActivity.Utemp.getPago().equals("N")) {
+                    if(i>=3 && MainActivity.Utemp.getPago().equals("N")) {
 
-                            pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE);
-                            pDialog.setTitleText(getResources().getString(R.string.app_name));
-                            pDialog.setContentText(getResources().getString(R.string.msg_pago));
-                            pDialog.setConfirmText(getString(R.string.yes));
-                            pDialog.setCancelText(getString(R.string.no));
-                            pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sDialog) {
-                                    sDialog.dismissWithAnimation();
-
-
-                                    Intent intent = new Intent(getContext(), PayPal.class);
-                                    intent.putExtra("costo", Constants.costo);
-                                    startActivity(intent);
-
-                                }
-                            });
-                            pDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.cancel();
-                                }
-                            });
-                            pDialog.show();
-                        }else
-                        {
-
-                            Intent intent = new Intent(getActivity(), SemanaActivity.class);
-                            intent.putExtra("id", String.valueOf(i));
-                            startActivity(intent);
-                        }
+                        pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE);
+                        pDialog.setTitleText(getResources().getString(R.string.app_name));
+                        pDialog.setContentText(getResources().getString(R.string.msg_pago));
+                        pDialog.setConfirmText(getString(R.string.yes));
+                        pDialog.setCancelText(getString(R.string.no));
+                        pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
 
 
+                                Intent intent = new Intent(getContext(), PayPal.class);
+                                intent.putExtra("costo", Constants.costo);
+                                startActivity(intent);
 
+                            }
+                        });
+                        pDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.cancel();
+                            }
+                        });
+                        pDialog.show();
+                    }else
+                    {
 
+                        Intent intent = new Intent(getActivity(), SemanaActivity.class);
+                        intent.putExtra("id", String.valueOf(i));
+                        startActivity(intent);
                     }
-                });
+
+
+
+
+                }
+            });
 
 
 
@@ -266,7 +262,6 @@ public class SemanasActivity extends Fragment {
     public class SemanasRecycleHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public TextView mSubTitle;
-        public TextView mLibras;
         public LinearLayout mContenedor;
 
 
@@ -274,9 +269,10 @@ public class SemanasActivity extends Fragment {
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.txtTitle);
             mSubTitle = (TextView) itemView.findViewById(R.id.txtSubtitle);
-            mLibras = (TextView) itemView.findViewById(R.id.txtLibras);
             mContenedor = (LinearLayout) itemView.findViewById(R.id.contenedor);
         }
     }
+
+
 
 }
