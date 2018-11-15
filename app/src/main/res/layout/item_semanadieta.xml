@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contenedor"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/ic_comida1"
+    android:gravity="left|center"
+    android:orientation="horizontal">
+
+
+    <!-- android:textAppearance="?android:attr/textAppearanceMedium" -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.60"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                style="@style/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="TextView"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/txtSubtitle"
+                style="@style/subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ripple:srcCompat="@drawable/ic_cocina" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
