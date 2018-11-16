@@ -1,5 +1,6 @@
 package app.karlafit.com.activity;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private String imagen;
 
     private ImageButton btnMenu;
+    private ImageButton btnArrow;
 
 
     private TabLayout tabLayout;
@@ -129,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnMenu=(ImageButton) findViewById(R.id.btnmenu);
+        btnArrow=(ImageButton) findViewById(R.id.btnback);
+
+        btnArrow.setVisibility(View.GONE);
 
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,13 +168,17 @@ public class MainActivity extends AppCompatActivity {
                 }else if(tab.getPosition()==1)
                 {
                     getSupportFragmentManager().beginTransaction().
-                            replace(R.id.contenedor, new SemanaDietaActivity(), "SOMETAG").
+                            replace(R.id.contenedor, new DietaActivity(), "SOMETAG").
                             commit();
+                    btnArrow.setVisibility(View.VISIBLE);
+
                 }else
                 {
                     getSupportFragmentManager().beginTransaction().
                             replace(R.id.contenedor, new RecetasActivity(), "SOMETAG").
                             commit();
+                    btnArrow.setVisibility(View.VISIBLE);
+
                 }
 
             }
@@ -366,6 +375,9 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 1:
 
+                        intent = new Intent(MainActivity.this, PerfilActivity.class);
+                        startActivity(intent);
+
                         break;
                     case 2:
 
@@ -435,19 +447,25 @@ public class MainActivity extends AppCompatActivity {
         switch (i)
         {
             case 1:
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.contenedor, new SemanasActivity(), "SOMETAG").
-                        commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, new SemanasActivity(), "SOMETAG")
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case 2:
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.contenedor, new DietaActivity(), "SOMETAG").
-                        commit();
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, new DietaActivity(), "SOMETAG")
+                        .commit();
                 break;
             case 3:
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.contenedor, new RecetasActivity(), "SOMETAG").
-                        commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contenedor, new RecetasActivity(), "SOMETAG")
+                        .addToBackStack(null)
+                        .commit();
                 break;
         }
 
@@ -458,6 +476,30 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }
+
+    public void back(View v)
+    {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed(){
+
+
+        getSupportFragmentManager().popBackStack();
+
+        /*if ( getSupportFragmentManager().getBackStackEntryCount() > 0)
+        {
+            getSupportFragmentManager().popBackStack();
+            return;
+        }else {
+            super.onBackPressed();
+        }*/
+
+
+    }
+
+
 
 
 

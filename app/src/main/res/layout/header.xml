@@ -18,7 +18,6 @@
             android:id="@+id/circleView"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:onClick="profile"
             app:srcCompat="@drawable/ic_user" />
 
         <TextView

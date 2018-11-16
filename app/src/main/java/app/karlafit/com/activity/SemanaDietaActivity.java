@@ -53,7 +53,7 @@ public class SemanaDietaActivity extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        databaseSemanas = FirebaseDatabase.getInstance().getReference("semanasDietas");
+        databaseSemanas = FirebaseDatabase.getInstance().getReference("semanaDietas");
         databaseSemanas.keepSynced(true);
 
 

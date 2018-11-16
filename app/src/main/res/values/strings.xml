@@ -67,5 +67,9 @@
     <string name="gracias_pago">Gracias por su pago!!!</string>
     <string name="prepara">Preparación</string>
     <string name="ingred">Ingredientes</string>
+    <string name="comida">Comida saludable</string>
+    <string name="consuma">Consuma 5 comidas al día</string>
+    <string name="comidaext">A continuación encontrarás el plan alimenticio para este reto. Considera que todas las cinco comidas son obligatorias y recuerda comerlas todas a la hora adecuada.
+</string>
 
 </resources>
