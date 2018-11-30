@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         loginFacebook = (LoginButton) findViewById(R.id.button_facebook_login);
-        loginFacebook.setReadPermissions("email", "public_profile","user_friends","user_birthday");
+        loginFacebook.setReadPermissions("email", "public_profile");
 
         btnFacebook = (Button) findViewById(R.id.btnfacebook);
         btnFacebook.setOnClickListener(new View.OnClickListener() {
