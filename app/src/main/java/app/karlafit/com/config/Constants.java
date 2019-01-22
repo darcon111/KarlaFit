@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -23,6 +25,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ImageSpan;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -254,10 +257,17 @@ public class Constants {
         return encodedImage;
     }
     /* base 64 to bitmap */
-    public static Bitmap decodeBase64(String input)
+    public static Bitmap decodeBase64(String input,float ancho,float alto)
     {
         byte[] decodedBytes = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+        /*Bitmap bit = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        ByteArrayOutputStream blob = new ByteArrayOutputStream();
+        bit.compress(Bitmap.CompressFormat.JPEG, 100, blob);
+        byte[] bitmapdata = blob.toByteArray();*/
+        return redimensionarImagenMaximo(BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length),ancho, alto);
+        //return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
     }
      /* get degraded color*/
     public static int getColorWithAlpha(int color, float ratio) {
@@ -619,6 +629,38 @@ public class Constants {
                 }
             }
         });
+    }
+
+
+    public static float convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+
+    public static Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth){
+        //Redimensionamos
+        int width = mBitmap.getWidth();
+        int height = mBitmap.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeigth) / height;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        // recreate the new Bitmap
+        Bitmap bit = Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
+
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        //return Bitmap.createBitmap(mBitmap, 0, 0, width, height, matrix, false);
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
     }
 
 

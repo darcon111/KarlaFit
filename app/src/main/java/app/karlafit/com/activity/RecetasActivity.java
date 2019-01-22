@@ -120,6 +120,10 @@ public class RecetasActivity extends android.support.v4.app.Fragment {
                     mRecetasRecyclerView.setVisibility(View.VISIBLE);
 
 
+                }else
+                {
+                    mRecetasRecyclerView.setVisibility(View.GONE);
+                    progress.setVisibility(View.GONE);
                 }
 
             }

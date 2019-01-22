@@ -83,11 +83,12 @@ public class SemanaDiaActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getSupportActionBar().setHomeAsUpIndicator(getDrawable(R.drawable.ic_arrow));
         } else {
             getSupportActionBar().setHomeAsUpIndicator(getResources().getDrawable(R.drawable.ic_arrow));
-        }
+        }*/
 
         txtHoras = (TextView) findViewById(R.id.txtHoras);
         txtTitulo2 = (TextView) findViewById(R.id.txtTitulo2);

@@ -196,7 +196,7 @@ public class SemanaDietaActivity extends Fragment {
                     }else
                     {
 
-                        Intent intent = new Intent(getActivity(), SemanaActivity.class);
+                        Intent intent = new Intent(getActivity(), DietaDiasActivity.class);
                         intent.putExtra("id", String.valueOf(i));
                         startActivity(intent);
                     }

@@ -2,23 +2,29 @@ package app.karlafit.com.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -46,6 +52,11 @@ public class SemanasActivity extends Fragment {
     private ProgressBar progress;
     private SweetAlertDialog pDialog;
 
+    private DisplayMetrics metrics = new DisplayMetrics();
+    private float width;
+    private float heigth;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
@@ -62,7 +73,9 @@ public class SemanasActivity extends Fragment {
         databaseSemanas = FirebaseDatabase.getInstance().getReference("semanas");
         databaseSemanas.keepSynced(true);
 
-
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        width = metrics.widthPixels; // ancho absoluto en pixels
+        heigth = Constants.convertDpToPixel(150, getActivity());
 
         mSemanasRecyclerView = (RecyclerView) view.findViewById(R.id.semanas_recycler_view);
         progress = (ProgressBar) view.findViewById(R.id.progress);
@@ -153,7 +166,17 @@ public class SemanasActivity extends Fragment {
             productHolder.mLibras.setText(mListSemanas.get(i).getLibras());
 
 
-            Glide.with(getActivity()).load(mListSemanas.get(i).getImagen()).into(new SimpleTarget<GlideDrawable>() {
+            //productHolder.mImg.setImageBitmap(Constants.decodeBase64(mListSemanas.get(i).getImagen(),width,heigth));
+
+            Glide.with(getActivity())
+                    .load(mListSemanas.get(i).getImagen()) // image url
+                    .override((int) width, (int) heigth) // resizing
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                    .into(productHolder.mImg);
+
+
+            /*Glide.with(getActivity()).load(mListSemanas.get(i).getImagen()).into(new SimpleTarget<GlideDrawable>() {
                 @Override
                 public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -163,7 +186,7 @@ public class SemanasActivity extends Fragment {
                         productHolder.mContenedor.setBackground(resource);
                     }
                 }
-            });
+            });*/
 
 
                 productHolder.mContenedor.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +290,8 @@ public class SemanasActivity extends Fragment {
         public TextView mTitle;
         public TextView mSubTitle;
         public TextView mLibras;
-        public LinearLayout mContenedor;
+        public ConstraintLayout mContenedor;
+        public ImageView mImg;
 
 
         public SemanasRecycleHolder(View itemView) {
@@ -275,7 +299,8 @@ public class SemanasActivity extends Fragment {
             mTitle = (TextView) itemView.findViewById(R.id.txtTitle);
             mSubTitle = (TextView) itemView.findViewById(R.id.txtSubtitle);
             mLibras = (TextView) itemView.findViewById(R.id.txtLibras);
-            mContenedor = (LinearLayout) itemView.findViewById(R.id.contenedor);
+            mContenedor = (ConstraintLayout) itemView.findViewById(R.id.contenedor);
+            mImg = (ImageView) itemView.findViewById(R.id.img);
         }
     }
 

@@ -162,7 +162,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                             .into(holder.profile);
                 }else
                 {
-                    holder.profile.setImageBitmap(Constants.decodeBase64(imagen_url));
+                    //holder.profile.setImageBitmap(Constants.decodeBase64(imagen_url));
 
                 }
             }else

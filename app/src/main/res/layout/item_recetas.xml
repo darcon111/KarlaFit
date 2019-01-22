@@ -10,7 +10,6 @@
         android:id="@+id/contenedor"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/ic_bg_semanas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +40,6 @@
             android:id="@+id/txtTitle"
             style="@style/title"
             android:layout_height="wrap_content"
-            android:text="@string/textview"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
@@ -62,8 +60,7 @@
                     style="@style/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="4"
-                    android:text="TextView" />
+                    android:maxLines="4" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 

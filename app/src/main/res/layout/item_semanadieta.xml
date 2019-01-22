@@ -4,7 +4,6 @@
     android:id="@+id/contenedor"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@drawable/ic_comida1"
     android:gravity="bottom"
     android:orientation="horizontal">
 
