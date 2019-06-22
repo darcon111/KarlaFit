@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -96,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
     //data facebook
     private String appname="",applastname="";
     private String appbirthday="";
+
+
 
 
     @Override

@@ -10,8 +10,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbaruser"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorBg"
         app:layout_collapseMode="pin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="TextView"
+            android:visibility="gone"
             tools:layout_editor_absoluteX="16dp" />
 
 
@@ -34,16 +35,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbaruser">
+        app:layout_constraintTop_toBottomOf="@+id/imageView11">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -62,12 +59,24 @@
             android:id="@+id/btnenviar"
             style="@style/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/button"
             android:text="@string/enviar" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbaruser"
+        app:srcCompat="@drawable/ic_logo" />
 
 
 </android.support.constraint.ConstraintLayout>

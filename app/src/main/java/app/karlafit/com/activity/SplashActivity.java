@@ -6,8 +6,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.VideoView;
 
 import com.crashlytics.android.Crashlytics;
@@ -30,6 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     // Set the duration of the splash screen
     private static final long SPLASH_SCREEN_DELAY = 3000;
     private FirebaseUser user;
+    private Button btnOmitir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +91,23 @@ public class SplashActivity extends AppCompatActivity {
 
 
         videoView = (VideoView) findViewById(R.id.videoView);
+        btnOmitir = (Button) findViewById(R.id.btnOmitir);
 
-        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.pepa);
+        app = new AppPreferences(getApplicationContext());
+
+        if(app.getTour().equals("1"))
+        {
+            btnOmitir.setVisibility(View.VISIBLE);
+        }
+
+        btnOmitir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parar();
+            }
+        });
+
+        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.appvideo);
 
         videoView.setVideoURI(video);
 
@@ -99,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (isFinishing())
                     return;
 
-                app = new AppPreferences(getApplicationContext());
+
                 user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if(app.getTour().equals("0"))
@@ -130,5 +148,31 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void parar(){
+
+        videoView.stopPlayback();
+
+        if(app.getTour().equals("0"))
+        {
+            Intent intent = new Intent(SplashActivity.this, RetoActivity.class);
+            startActivity(intent);
+            finish();
+
+        }else {
+            if (user != null) {
+                // User is signed in
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                // No user is signed in
+                Intent mainIntent = new Intent().setClass(
+                        SplashActivity.this, LoginActivity.class);
+                startActivity(mainIntent);
+                finish();
+            }
+        }
     }
 }

@@ -19,157 +19,163 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
                     android:contentDescription="TODO"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_logo" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="32dp"
-                    android:textColorHint="@color/colorIcons"
-                    android:textColorLink="@color/colorIcons"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/txtemail"
-                        style="@style/editText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/email"
-                        android:textColorHighlight="@color/colorIcons" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/textInputLayout2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
-                    android:textColorHint="@color/colorIcons"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/txtpass"
-                        style="@style/editText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/pass"
-                        android:inputType="textPassword"
-                        android:textColor="@color/colorIcons" />
-                </android.support.design.widget.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnolvide"
-                    style="@style/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/roboto_condensed_light"
-                    android:onClick="recuperar"
-                    android:text="@string/olvidaste"
-                    android:textColor="@color/colorButton"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
-
-
                 <LinearLayout
+                    android:id="@+id/linearLayout4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnolvide">
+                    app:layout_constraintHorizontal_bias="0.50"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textColorHint="@color/colorIcons"
+                        android:textColorLink="@color/colorIcons">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtemail"
+                            style="@style/editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"
+                            android:textColorHint="@color/colorIcons" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/textInputLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textColorHint="@color/colorIcons">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtpass"
+                            style="@style/editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/boxedregular"
+                            android:hint="@string/pass"
+                            android:inputType="textPassword"
+                            android:textColor="@color/colorIcons" />
+                    </android.support.design.widget.TextInputLayout>
 
                     <Button
-                        android:id="@+id/btnlogin"
+                        android:id="@+id/btnolvide"
                         style="@style/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/boxedregular"
+                        android:onClick="recuperar"
+                        android:text="@string/olvidaste"
+                        android:textColor="@color/colorIcons"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button"
-                        android:text="@string/iniciar" />
+                        android:layout_marginTop="16dp"
+                        android:orientation="vertical">
 
-                    <com.facebook.login.widget.LoginButton
-                        android:id="@+id/button_facebook_login"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:visibility="gone" />
+                        <Button
+                            android:id="@+id/btnlogin"
+                            style="@style/button"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="@drawable/button"
+                            android:text="@string/iniciar" />
 
-                    <Button
-                        android:id="@+id/btnfacebook"
-                        style="@style/button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/button_facebook"
-                        android:text="@string/iniciar_facebook" />
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/button_facebook_login"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/textView12"
-                        style="@style/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center"
-                        android:text="O"
-                        android:textColor="@color/colorIcons" />
+                        <Button
+                            android:id="@+id/btnfacebook"
+                            style="@style/button"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/reto"
+                            android:text="@string/iniciar_facebook"
+                            android:textColor="@color/colorSecondaryText" />
 
-                    <Button
-                        android:id="@+id/btnRegistro"
-                        style="@style/button"
-                        android:onClick="registro"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/buttonregistro"
-                        android:text="@string/registro" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="¿No estás registrado? Hazlo"
+                                android:textColor="@color/colorSecondaryText"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/btnregis"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:onClick="registro"
+                                android:text="aquí"
+                                android:textColor="@color/colorAccent" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnRegistro"
+                            style="@style/button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/buttonregistro"
+                            android:onClick="registro"
+                            android:text="@string/registro"
+                            android:visibility="gone" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
 
             </android.support.constraint.ConstraintLayout>
 
